@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Forefront Security — Independent Security Research</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 28 28%27%3E%3Cpath d=%27M14 2 L25 8 V16 C25 21.5 20.2 25.2 14 27 C7.8 25.2 3 21.5 3 16 V8 Z%27 stroke=%27%235ad1ff%27 stroke-width=%271.6%27 fill=%27rgba(90,209,255,.06)%27/%3E%3Cpath d=%27M9.5 14.2 L12.7 17.4 L19 10.6%27 stroke=%27%235ad1ff%27 stroke-width=%271.8%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 fill=%27none%27/%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://forefrontsecurity.ai/">
+<meta property="og:title" content="Forefront Security — Independent Security Research">
+<meta property="og:description" content="AI-assisted penetration testing, human-verified. Coordinated disclosure practiced.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@forefront_sec">
+<meta name="description" content="Forefront Security — independent security research. AI-assisted penetration testing, human-verified. Coordinated disclosure practiced.">
+<style>
+  :root {
+    --bg: #07090d;
+    --panel: rgba(255,255,255,.03);
+    --border: rgba(255,255,255,.09);
+    --text: #e8ebf0;
+    --muted: #9aa3b2;
+    --accent: #5ad1ff;
+    --accent-dim: rgba(90,209,255,.14);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; min-height: 100vh;
+    font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg); color: var(--text);
+    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background:
+      radial-gradient(60rem 30rem at 70% -10%, rgba(90,209,255,.10), transparent 60%),
+      radial-gradient(50rem 26rem at 10% 110%, rgba(122,162,255,.07), transparent 60%);
+  }
+  body::after {
+    content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: .5;
+    background-image: linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(70% 60% at 50% 0%, black, transparent 75%);
+    -webkit-mask-image: radial-gradient(70% 60% at 50% 0%, black, transparent 75%);
+  }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 1.5rem; }
+  header { display: flex; align-items: center; gap: .65rem; padding: 1.6rem 0; }
+  .mark { width: 28px; height: 28px; flex: none; }
+  .wordmark { font-weight: 650; letter-spacing: -0.01em; }
+  .wordmark span { color: var(--muted); font-weight: 500; }
+  .eyebrow {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: .72rem; letter-spacing: .22em; text-transform: uppercase; color: var(--accent);
+    margin: 4.5rem 0 .9rem;
+  }
+  h1 {
+    font-size: clamp(2.1rem, 5.4vw, 3.4rem); line-height: 1.08; letter-spacing: -0.025em;
+    font-weight: 700; margin: 0 0 1.1rem; max-width: 22ch;
+  }
+  h1 em { font-style: normal; color: var(--accent); }
+  .sub { color: var(--muted); font-size: 1.06rem; line-height: 1.65; max-width: 58ch; margin: 0 0 2.6rem; }
+  .sub strong { color: var(--text); font-weight: 600; }
+  h2 {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: .78rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted);
+    margin: 3.4rem 0 1.1rem; font-weight: 500;
+  }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: .9rem; }
+  .card {
+    border: 1px solid var(--border); border-radius: 14px; background: var(--panel);
+    padding: 1.15rem 1.2rem 1.25rem; transition: border-color .18s ease, transform .18s ease;
+  }
+  .card:hover { border-color: rgba(90,209,255,.35); transform: translateY(-2px); }
+  .card h3 { margin: 0 0 .45rem; font-size: .98rem; font-weight: 650; letter-spacing: -0.01em; }
+  .card p { margin: 0; color: var(--muted); font-size: .88rem; line-height: 1.55; }
+  .card a { color: var(--accent); text-decoration: none; }
+  .card a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .disclosure {
+    border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 14px;
+    background: var(--panel); padding: 1.2rem 1.3rem; margin-top: .9rem;
+    display: flex; flex-wrap: wrap; gap: .35rem 1.6rem; align-items: baseline; justify-content: space-between;
+  }
+  .disclosure .t { font-weight: 650; font-size: .95rem; }
+  .disclosure .d { color: var(--muted); font-size: .88rem; }
+  .disclosure a { color: var(--accent); text-decoration: none; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .86rem; }
+  .disclosure a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  footer {
+    margin-top: 4rem; padding: 1.6rem 0 2.4rem; border-top: 1px solid var(--border);
+    display: flex; flex-wrap: wrap; gap: .4rem 1.4rem; justify-content: space-between;
+    color: var(--muted); font-size: .82rem;
+  }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--text); }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  @media (max-width: 640px) { .eyebrow { margin-top: 2.8rem; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <svg class="mark" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+      <path d="M14 2 L25 8 V16 C25 21.5 20.2 25.2 14 27 C7.8 25.2 3 21.5 3 16 V8 Z" stroke="url(#g)" stroke-width="1.6" fill="rgba(90,209,255,.06)"/>
+      <path d="M9.5 14.2 L12.7 17.4 L19 10.6" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <defs><linearGradient id="g" x1="3" y1="2" x2="25" y2="27"><stop stop-color="#5ad1ff"/><stop offset="1" stop-color="#7aa2ff"/></linearGradient></defs>
+    </svg>
+    <div class="wordmark">Forefront <span>Security</span></div>
+  </header>
+
+  <p class="eyebrow">Independent security research</p>
+  <h1>AI-assisted penetration testing, <em>human-verified</em>.</h1>
+  <p class="sub">Methodology-first security testing with <strong>evidence an auditor can hold</strong> — every finding verified by hand, every claim reproducible, every report written for the people who have to act on it.</p>
+
+  <h2>Focus areas</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>Penetration testing</h3>
+      <p>Fixed-scope, auditor-ready assessments of web applications and APIs. Human-verified from first probe to final report.</p>
+    </div>
+    <div class="card">
+      <h3>Verification tooling</h3>
+      <p>Lightweight tooling that proves a finding is real — and that a fix actually fixed it. No scanner noise, just reproduced evidence.</p>
+    </div>
+    <div class="card">
+      <h3>Security research</h3>
+      <p>Coordinated disclosure, research notes, and reproducible evidence — published responsibly, on the vendor's timeline.</p>
+    </div>
+    <div class="card">
+      <h3>Opening soon</h3>
+      <p>Productized assessments are in final preparation. To be notified at launch, email <a href="mailto:hello@forefrontsecurity.ai?subject=waitlist">hello@forefrontsecurity.ai</a></p>
+    </div>
+  </div>
+
+  <h2>Responsible disclosure</h2>
+  <div class="disclosure">
+    <div>
+      <div class="t">Found an issue in something we published or tested?</div>
+      <div class="d">Coordinated disclosure practiced. Reports answered, credit given where due.</div>
+    </div>
+    <a href="mailto:security@forefrontsecurity.ai">security@forefrontsecurity.ai</a>
+  </div>
+
+  <footer>
+    <div>© 2026 Forefront Security</div>
+    <div><a href="mailto:hello@forefrontsecurity.ai">hello@forefrontsecurity.ai</a> · <a href="https://x.com/forefront_sec" class="mono">@forefront_sec</a></div>
+  </footer>
+
+</div>
+</body>
+</html>
