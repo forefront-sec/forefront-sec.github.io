@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What your report looks like — Forefront Security</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230a0d12%27/%3E%3Cpath d=%27M20 14 V51%27 stroke=%27%235ad1ff%27 stroke-width=%275.5%27 stroke-linecap=%27round%27/%3E%3Cpath d=%27M20 14 H47%27 stroke=%27%235ad1ff%27 stroke-width=%275.5%27 stroke-linecap=%27round%27/%3E%3Cpath d=%27M20 34 L30 45 L47 25%27 stroke=%27%237aa2ff%27 stroke-width=%275.5%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 fill=%27none%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../styles.css">
+<meta property="og:title" content="What your report looks like — Forefront Security">
+<meta name="description" content="Every engagement ships this structure: executive summary, verified findings, raw evidence, and a runnable validator per finding.">
+<link rel="canonical" href="https://forefrontsecurity.ai/report/">
+<style>
+  .doc { max-width: 860px; }
+  h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin: 1rem 0 .8rem; }
+  .banner { border: 1px solid #66491a; border-left: 3px solid #ffd27d; background: #2a1a00; color: #ffd27d;
+    border-radius: 12px; padding: .8rem 1.1rem; font-size: .85rem; line-height: 1.55; margin: 1rem 0 2rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+  th { text-align: left; color: var(--muted); font-weight: 600; padding: .5rem .6rem; border-bottom: 1px solid var(--border); font-size: .8rem; }
+  td { padding: .55rem .6rem; border-bottom: 1px solid var(--border); color: var(--muted); vertical-align: top; line-height: 1.5; }
+  td:first-child { color: var(--accent); font-family: ui-monospace, Menlo, monospace; white-space: nowrap; }
+  .finding { border: 1px solid var(--border); border-left: 3px solid #ffd27d; border-radius: 14px; background: var(--panel); padding: 1.2rem 1.3rem; }
+  .finding h3 { margin: 0 0 .8rem; font-size: 1rem; }
+  .sev { display: inline-block; font-family: ui-monospace, Menlo, monospace; font-size: .68rem; letter-spacing: .1em;
+    color: #ffd27d; border: 1px solid #66491a; background: #2a1a00; border-radius: 5px; padding: .1rem .45rem; vertical-align: middle; }
+  .finding dl { margin: 0; display: grid; grid-template-columns: 88px 1fr; gap: .45rem .8rem; }
+  .finding dt { color: var(--muted); font-size: .8rem; font-family: ui-monospace, Menlo, monospace; padding-top: .1rem; }
+  .finding dd { margin: 0; color: var(--text); font-size: .88rem; line-height: 1.55; }
+  .finding dd .mono { font-family: ui-monospace, Menlo, monospace; color: var(--accent); }
+  .strip .d code { font-family: ui-monospace, Menlo, monospace; color: var(--text); }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; }
+  @media (max-width: 640px) { .cols { grid-template-columns: 1fr; } .finding dl { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap doc">
+
+<header>
+  <a class="home-link" href="/">
+    <svg class="mark" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+      <path d="M62 44 V162" stroke="#5ad1ff" stroke-width="17" stroke-linecap="round"/>
+      <path d="M62 44 H148" stroke="#5ad1ff" stroke-width="17" stroke-linecap="round"/>
+      <path d="M62 108 L96 142 L150 78" stroke="#7aa2ff" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div class="wordmark">Forefront <span>Security</span></div>
+  </a>
+  <nav>
+    <a href="/report/">Report structure</a>
+    <a href="/methodology/">Methodology</a>
+    <a href="/research/">Lab notes</a>
+  </nav>
+  <img class="header-art" src="../hero_B_1.png" width="1536" height="340"
+       alt="Neon cyan data streams flowing across holographic panels, resolving into a bright green verified checkmark.">
+</header>
+
+<h1>What your report looks like.</h1>
+<p class="sub">Every engagement ships this structure — executive summary, verified findings,
+raw evidence, and a runnable validator per finding. No scanner dumps, no false-positive padding,
+no 80-page filler. The method behind it: <a href="/methodology/" style="color:var(--accent);">methodology →</a></p>
+
+<div class="banner">Illustrative example — fictional target (Acme Shift, a 12-person SaaS). Real
+reports follow this structure, human-signed. No client names, logos, or report content are
+published without permission. The example below shows one finding; the full report includes
+every section on this page.</div>
+
+<h2>The 10 business days</h2>
+<table>
+  <tr><th>Day</th><th>What happens</th><th>You see</th></tr>
+  <tr><td>0</td><td>Gate cleared: scope locked, services agreement + ROE signed, payment received, ownership verified, test window open</td><td>ROE (scope, targets, rate limits, no-go windows)</td></tr>
+  <tr><td>1–2</td><td>Passive recon + surface map</td><td>Nothing (silent)</td></tr>
+  <tr><td>3–8</td><td>Hypothesis-driven active testing; dual-model cross-verification; every finding captured as raw evidence</td><td>Daily 3-line pulse (optional)</td></tr>
+  <tr><td>9</td><td>Findings walkthrough (30 min) — we walk you through the findings and hand over the report</td><td>Report v1.0 + evidence index</td></tr>
+  <tr><td>10</td><td>Handoff — validator pack is yours. Fix on your schedule; request a retest within 30 days of delivery. We re-run its validator against your remediated system and append the result to your report's verification ledger within 3 business days</td><td>Verification ledger + 30-day retest window</td></tr>
+</table>
+<!-- [CONFIRM: 10 business days from gate clearance; adjust if the clock starts elsewhere] -->
+<!-- [CONFIRM: ROE page count — "1-page" removed until verified] -->
+
+<h2>What's inside</h2>
+<div class="cards">
+  <div class="card"><h3>Executive summary</h3><p>Plain language, business consequence first — auditors and non-technical founders both read this page.</p></div>
+  <div class="card"><h3>Findings</h3><p>Each with severity and rating rationale, evidence ID, reproduction steps, attack path (actor → action → consequence), and a copy-paste fix with post-fix verification steps.</p></div>
+  <div class="card"><h3>Severity rubric</h3><p>The rating method and definitions used in your report, so findings are comparable and defensible.</p></div>
+  <div class="card"><h3>What you do right</h3><p>Named explicitly. Auditors ask; it's honest — and it's the page your team likes reading.</p></div>
+  <div class="card"><h3>Hardening notes appendix</h3><p>Real observations without a full attack path — priced at zero, never inflated into fake findings.</p></div>
+  <div class="card"><h3>Evidence ledger</h3><p>Raw server responses, byte-counted, UTC-stamped — disproven hypotheses included. Any finding traces to raw evidence. This is what makes it auditor-ready.</p></div>
+  <div class="card"><h3>Owner column</h3><p>Your internal remediation tracker. We provide indicative effort estimates; you own assignment and status. We never participate in internal remediation.</p></div>
+  <div class="card"><h3>Retest addendum</h3><p>Findings move to verified-fixed / still-open in the ledger, with the retest dated and signed by us.</p></div>
+  <div class="card"><h3>Methodology &amp; coverage annex</h3><p>Which test areas were performed, which were out of scope, which weren't — documented per engagement alongside the evidence ledger. A completed engagement is not a security guarantee, and the report says so.</p></div>
+</div>
+<!-- [CONFIRM: severity rubric exists and ships; if not, add it before promising it] -->
+
+<h2>A finding, as it ships</h2>
+<div class="finding">
+  <h3>F-03 · <span class="sev">MEDIUM</span> · Password reset lacks rate limiting</h3>
+  <dl>
+    <dt>Attack path</dt><dd>An attacker → submits 10,000 reset requests for a known user → token space narrows → account-takeover risk on predictable tokens.</dd>
+    <dt>Repro</dt><dd>6 reset requests for one account in 60 seconds; the 6th returns 200 and no <span class="mono">429</span>.</dd>
+    <dt>Evidence</dt><dd><span class="mono">A2-P-14</span> (raw responses, 10,445 bytes / 10.2 KB, 2026-11-06T18:44Z)</dd>
+    <dt>Fix</dt><dd>Rate-limit the reset endpoint per-IP + per-account; 5/hour. (copy-paste nginx/express snippet per stack)</dd>
+    <dt>Verify</dt><dd>6th request within 1h returns 429; legitimate reset still lands.</dd>
+    <dt>Effort</dt><dd>~1 hr (our indicative estimate; you own the final estimate and the owner column)</dd>
+  </dl>
+</div>
+
+<h2>Every finding ships runnable</h2>
+<div class="strip">
+  <div>
+    <div class="t">The validator pack — evidence you can run yourself.</div>
+    <div class="d">Each finding comes as a rate-limited, non-destructive script: <code>./F-03_validate.sh</code> →
+    exit <span class="mono">0</span> = fixed, <span class="mono">1</span> = still present,
+    <span class="mono">2</span> = rig error. You can verify the fix yourself; our re-run stays
+    the authoritative record. The validators are yours to keep and run anytime.</div>
+  </div>
+</div>
+<!-- [CONFIRM: all validators read-only or rate-limited enough to call non-destructive?] -->
+
+<h2>What the engagement buys — and doesn't</h2>
+<div class="cols">
+  <div class="strip"><div class="t">Buys</div><div class="d">The report, the evidence, the included retest window, and an artifact structured for auditor review in a SOC 2 audit (your auditor makes the final call).</div></div>
+  <div class="strip"><div class="t">Doesn't buy</div><div class="d">Remediation work, internal workflow participation, or ongoing monitoring — we test, report, and verify; you own the fixes.</div></div>
+</div>
+<!-- [CONFIRM: TSC mapping artifact? If yes, say so here.] -->
+
+<div style="margin-top:2.4rem;">
+  <a class="cta" href="/#founding">Founding clients: limited slots · $2,500 →</a>
+  <p style="color:var(--muted); font-size:.85rem; margin:.8rem 0 0;">This is what lands in ten business days from gate clearance. Questions on scope? <a href="mailto:hello@forefrontsecurity.ai" style="color:var(--accent);">hello@forefrontsecurity.ai</a></p>
+</div>
+
+<footer>
+  <div>© 2026 Forefront Security</div>
+  <div><a href="mailto:hello@forefrontsecurity.ai">hello@forefrontsecurity.ai</a> · <a href="https://x.com/forefront_sec" class="mono">@forefront_sec</a> · <a href="/methodology/">Methodology</a> · <a href="/disclosure/">Disclosure</a> · <a href="/terms.html">Terms</a> · <a href="/privacy.html">Privacy</a></div>
+</footer>
+
+</div>
+</body>
+</html>

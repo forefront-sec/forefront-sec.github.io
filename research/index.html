@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lab notes — Forefront Security research</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230a0d12%27/%3E%3Cpath d=%27M20 14 V51%27 stroke=%27%235ad1ff%27 stroke-width=%275.5%27 stroke-linecap=%27round%27/%3E%3Cpath d=%27M20 14 H47%27 stroke=%27%235ad1ff%27 stroke-width=%275.5%27 stroke-linecap=%27round%27/%3E%3Cpath d=%27M20 34 L30 45 L47 25%27 stroke=%27%237aa2ff%27 stroke-width=%275.5%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 fill=%27none%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../styles.css">
+<meta property="og:title" content="Lab notes — Forefront Security research">
+<meta name="description" content="What the lab is working on: repository &amp; dependency scanning, smart-contract analysis. Findings go to maintainers first, coordinated disclosure always.">
+<link rel="canonical" href="https://forefrontsecurity.ai/research/">
+<style>
+  .doc { max-width: 860px; }
+  h1 { font-size: clamp(1.7rem, 4vw, 2.4rem); margin: 1.2rem 0 .8rem; }
+  .note { border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 14px; background: var(--panel); padding: 1.3rem 1.4rem; margin-bottom: 1rem; }
+  .note h3 { margin: 0 0 .6rem; font-size: 1.05rem; font-weight: 650; }
+  .note p { color: var(--muted); font-size: .92rem; line-height: 1.65; margin: 0 0 .8rem; }
+  .note p:last-child { margin-bottom: 0; }
+  .note strong { color: var(--text); }
+  .contact { color: var(--muted); font-size: .9rem; line-height: 1.6; margin-top: 2rem; }
+  .contact a { color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="wrap doc">
+
+<header>
+  <a class="home-link" href="/">
+    <svg class="mark" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+      <path d="M62 44 V162" stroke="#5ad1ff" stroke-width="17" stroke-linecap="round"/>
+      <path d="M62 44 H148" stroke="#5ad1ff" stroke-width="17" stroke-linecap="round"/>
+      <path d="M62 108 L96 142 L150 78" stroke="#7aa2ff" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div class="wordmark">Forefront <span>Security</span></div>
+  </a>
+  <nav>
+    <a href="/report/">Report structure</a>
+    <a href="/methodology/">Methodology</a>
+    <a href="/research/">Lab notes</a>
+  </nav>
+  <img class="header-art" src="../hero_B_1.png" width="1536" height="340"
+       alt="Neon cyan data streams flowing across holographic panels, resolving into a bright green verified checkmark.">
+</header>
+
+<h1>Lab notes</h1>
+<p class="sub">What the lab is working on. Notes are published here as lanes mature; findings go
+to maintainers first, coordinated disclosure always.</p>
+
+<h2>Active lanes</h2>
+
+<div class="note" id="repo-scan">
+  <h3>Repository &amp; dependency scanning</h3>
+  <p><strong>What it is:</strong> read-only analysis of git repositories, built container images,
+  and pull requests — dependency CVEs matched against OSV.dev and GHSA, leaked secrets,
+  Dockerfile and IaC misconfiguration, risky source patterns. Scanned code is never built,
+  installed, or executed — static, manifest, and layer analysis only.</p>
+  <p><strong>The differentiator is the triage layer:</strong> frontier-grade AI — every output
+  human-verified — suppresses false positives with reasons, explains each surviving flag in
+  plain language, ranks by exploitability and exposure, and drafts the fix (a dependency-bump PR
+  or a config patch). A scanner nobody trusts produces noise; a triage layer that shows its work
+  produces evidence.</p>
+  <p><strong>Status:</strong> spec'd, in the lab — it never runs ahead of the pentest work.
+  First surfaces when it ships: a generic container and a GitHub Action.</p>
+  <p>Want to know when a lane opens? <a href="mailto:hello@forefrontsecurity.ai">hello@forefrontsecurity.ai</a>
+  — or watch this section; it grows as the lab does.</p>
+</div>
+
+<div class="note" id="smart-contracts">
+  <h3>Smart-contract analysis</h3>
+  <p><strong>What it is:</strong> the same engine pointed at on-chain code. Fork at a pinned
+  block into an isolated sandbox, AI audit plus guided fuzzing, every candidate finding validated
+  before it is reported, disclosure to the deployer first — coordinated, embargoed, no
+  exceptions.</p>
+  <p><strong>Why this lane exists:</strong> published research (SCONE-bench, December 2025)
+  showed frontier AI agents exploiting 55.8% of post-knowledge-cutoff smart-contract
+  vulnerabilities in simulation, finding two novel zero-days at roughly $1.22 of compute per
+  contract scanned — with exploit revenue doubling every 1.3 months. The attacker economics
+  arrived first; the defensive method should not be far behind.</p>
+  <!-- [CONFIRM: add the SCONE-bench citation link so the 55.8% / $1.22 / 1.3-month figures are checkable] -->
+  <p><strong>Status:</strong> parked. No audit service is offered today. The lane opens when a
+  crypto-native client pulls and our coverage fits the risk — not before.</p>
+  <p>Want to know when a lane opens? <a href="mailto:hello@forefrontsecurity.ai">hello@forefrontsecurity.ai</a>
+  — or watch this section; it grows as the lab does.</p>
+</div>
+
+<footer>
+  <div>© 2026 Forefront Security</div>
+  <div><a href="mailto:hello@forefrontsecurity.ai">hello@forefrontsecurity.ai</a> · <a href="https://x.com/forefront_sec" class="mono">@forefront_sec</a> · <a href="/report/">Report structure</a> · <a href="/methodology/">Methodology</a> · <a href="/disclosure/">Disclosure</a> · <a href="/terms.html">Terms</a> · <a href="/privacy.html">Privacy</a></div>
+</footer>
+
+</div>
+</body>
+</html>

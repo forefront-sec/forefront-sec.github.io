@@ -3,156 +3,89 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Forefront Security — Independent Security Research</title>
+<title>Forefront Security — External penetration testing, human-verified</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230a0d12%27/%3E%3Cpath d=%27M20 14 V51%27 stroke=%27%235ad1ff%27 stroke-width=%275.5%27 stroke-linecap=%27round%27/%3E%3Cpath d=%27M20 14 H47%27 stroke=%27%235ad1ff%27 stroke-width=%275.5%27 stroke-linecap=%27round%27/%3E%3Cpath d=%27M20 34 L30 45 L47 25%27 stroke=%27%237aa2ff%27 stroke-width=%275.5%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 fill=%27none%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles.css">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://forefrontsecurity.ai/">
-<meta property="og:title" content="Forefront Security — Independent Security Research">
-<meta property="og:description" content="AI-assisted penetration testing, human-verified. Coordinated disclosure practiced.">
-<meta name="twitter:card" content="summary">
+<meta property="og:title" content="Forefront Security — External penetration testing, human-verified">
+<meta property="og:description" content="External web app, API, and cloud-config testing with evidence an auditor can review. Every finding verified by hand. 10 business days from gate clearance. A completed engagement is not a security guarantee.">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@forefront_sec">
-<meta name="description" content="Forefront Security — independent security research. AI-assisted penetration testing, human-verified. Coordinated disclosure practiced.">
-<style>
-  :root {
-    --bg: #07090d;
-    --panel: rgba(255,255,255,.03);
-    --border: rgba(255,255,255,.09);
-    --text: #e8ebf0;
-    --muted: #9aa3b2;
-    --accent: #5ad1ff;
-    --accent-dim: rgba(90,209,255,.14);
+<meta property="og:image" content="https://forefrontsecurity.ai/hero_B_1.png">
+<meta name="twitter:image" content="https://forefrontsecurity.ai/hero_B_1.png">
+<meta name="description" content="Forefront Security — external web app, API, and cloud-config testing, human-verified. Auditor-ready reports in 10 business days from gate clearance. A completed engagement is not a security guarantee. Coordinated disclosure practiced.">
+<link rel="canonical" href="https://forefrontsecurity.ai/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Forefront Security LLC",
+  "url": "https://forefrontsecurity.ai/",
+  "logo": "https://forefrontsecurity.ai/hero_B_1.png",
+  "email": "hello@forefrontsecurity.ai",
+  "areaServed": "US",
+  "sameAs": ["https://x.com/forefront_sec", "https://github.com/forefront-sec"],
+  "makesOffer": {
+    "@type": "Offer",
+    "name": "External Web App, API, and Cloud-Config Assessment",
+    "description": "External penetration testing of web application, API, and cloud configuration — structured for auditor review; 10 business days from gate clearance.",
+    "priceCurrency": "USD",
+    "price": "2500"
   }
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    margin: 0; min-height: 100vh;
-    font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background: var(--bg); color: var(--text);
-    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
-  }
-  body::before {
-    content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
-    background:
-      radial-gradient(60rem 30rem at 70% -10%, rgba(90,209,255,.10), transparent 60%),
-      radial-gradient(50rem 26rem at 10% 110%, rgba(122,162,255,.07), transparent 60%);
-  }
-  body::after {
-    content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: .5;
-    background-image: linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
-                      linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
-    background-size: 44px 44px;
-    mask-image: radial-gradient(70% 60% at 50% 0%, black, transparent 75%);
-    -webkit-mask-image: radial-gradient(70% 60% at 50% 0%, black, transparent 75%);
-  }
-  .wrap { max-width: 980px; margin: 0 auto; padding: 0 1.5rem; }
-  header { display: flex; align-items: center; gap: .65rem; padding: 1.6rem 0; }
-  .mark { width: 28px; height: 28px; flex: none; }
-  .wordmark { font-weight: 650; letter-spacing: -0.01em; }
-  .wordmark span { color: var(--muted); font-weight: 500; }
-  .eyebrow {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    font-size: .72rem; letter-spacing: .22em; text-transform: uppercase; color: var(--accent);
-    margin: 4.5rem 0 .9rem;
-  }
-  h1 {
-    font-size: clamp(2.1rem, 5.4vw, 3.4rem); line-height: 1.08; letter-spacing: -0.025em;
-    font-weight: 700; margin: 0 0 1.1rem; max-width: 22ch;
-  }
-  h1 em { font-style: normal; color: var(--accent); }
-  .sub { color: var(--muted); font-size: 1.06rem; line-height: 1.65; max-width: 58ch; margin: 0 0 2.6rem; }
-  .sub strong { color: var(--text); font-weight: 600; }
-  h2 {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    font-size: .78rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted);
-    margin: 3.4rem 0 1.1rem; font-weight: 500;
-  }
-  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: .9rem; }
-  .card {
-    border: 1px solid var(--border); border-radius: 14px; background: var(--panel);
-    padding: 1.15rem 1.2rem 1.25rem; transition: border-color .18s ease, transform .18s ease;
-  }
-  .card:hover { border-color: rgba(90,209,255,.35); transform: translateY(-2px); }
-  .card h3 { margin: 0 0 .45rem; font-size: .98rem; font-weight: 650; letter-spacing: -0.01em; }
-  .card p { margin: 0; color: var(--muted); font-size: .88rem; line-height: 1.55; }
-  .card a { color: var(--accent); text-decoration: none; }
-  .card a:hover { text-decoration: underline; text-underline-offset: 3px; }
-  .strip { border:1px solid var(--border); border-left:3px solid #7ce38b; border-radius:14px; background:var(--panel); padding:1.2rem 1.3rem; margin-top:.9rem; }
-  .strip .t { font-weight:650; font-size:.95rem; }
-  .strip .d { color:var(--muted); font-size:.88rem; line-height:1.6; }
-  .disclosure {
-    border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 14px;
-    background: var(--panel); padding: 1.2rem 1.3rem; margin-top: .9rem;
-    display: flex; flex-wrap: wrap; gap: .35rem 1.6rem; align-items: baseline; justify-content: space-between;
-  }
-  .disclosure .t { font-weight: 650; font-size: .95rem; }
-  .disclosure .d { color: var(--muted); font-size: .88rem; }
-  .disclosure a { color: var(--accent); text-decoration: none; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .86rem; }
-  .disclosure a:hover { text-decoration: underline; text-underline-offset: 3px; }
-  footer {
-    margin-top: 4rem; padding: 1.6rem 0 2.4rem; border-top: 1px solid var(--border);
-    display: flex; flex-wrap: wrap; gap: .4rem 1.4rem; justify-content: space-between;
-    color: var(--muted); font-size: .82rem;
-  }
-  footer a { color: var(--muted); text-decoration: none; }
-  footer a:hover { color: var(--text); }
-  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-  .caret { color: var(--accent); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-weight: 700; }
-  .hero { display: flex; gap: 2.5rem; align-items: flex-start; }
-  .hero-text { flex: 1 1 55%; min-width: 0; }
-  .term {
-    flex: 1 1 42%; min-width: 280px; margin-top: 4.2rem;
-    border: 1px solid var(--border); border-radius: 14px; background: rgba(5,7,10,.85);
-    box-shadow: 0 18px 50px rgba(0,0,0,.45); overflow: hidden;
-  }
-  .term-bar { display: flex; align-items: center; gap: .45rem; padding: .6rem .9rem; border-bottom: 1px solid var(--border); }
-  .term-bar .dot { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,.16); }
-  .term-title { color: var(--muted); font-size: .74rem; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; margin-left: .4rem; }
-  .term-body { padding: 1rem 1.1rem 1.2rem; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .8rem; line-height: 1.9; color: var(--text); }
-  .term-body .p { color: var(--accent); }
-  .term-body .ok { color: #7ce38b; }
-  .term-body .dim { color: var(--muted); }
-  .cursor { color: var(--accent); animation: blink 1.1s steps(1) infinite; }
-  @keyframes blink { 50% { opacity: 0; } }
-  @media (max-width: 860px) { .hero { flex-direction: column; } .term { margin-top: 0; width: 100%; } }
-  @media (max-width: 640px) { .eyebrow { margin-top: 2.8rem; } }
-</style>
+}
+</script>
 </head>
 <body>
 <div class="wrap">
 
   <header>
-    <svg class="mark" viewBox="0 0 200 200" fill="none" aria-hidden="true">
-      <path d="M62 44 V162" stroke="#5ad1ff" stroke-width="17" stroke-linecap="round"/>
-      <path d="M62 44 H148" stroke="#5ad1ff" stroke-width="17" stroke-linecap="round"/>
-      <path d="M62 108 L96 142 L150 78" stroke="#7aa2ff" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-    <div class="wordmark">Forefront <span>Security</span></div>
+    <a class="home-link" href="/">
+      <svg class="mark" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+        <path d="M62 44 V162" stroke="#5ad1ff" stroke-width="17" stroke-linecap="round"/>
+        <path d="M62 44 H148" stroke="#5ad1ff" stroke-width="17" stroke-linecap="round"/>
+        <path d="M62 108 L96 142 L150 78" stroke="#7aa2ff" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="wordmark">Forefront <span>Security</span></div>
+    </a>
+    <nav>
+      <a href="/report/">Report structure</a>
+      <a href="/methodology/">Methodology</a>
+      <a href="/research/">Lab notes</a>
+    </nav>
+    <img class="header-art" src="hero_B_1.png" width="1536" height="340"
+         alt="Neon cyan data streams flowing across holographic panels, resolving into a bright green verified checkmark.">
   </header>
 
   <div class="hero">
   <div class="hero-text">
     <p class="eyebrow">Independent security research</p>
-    <h1>AI-assisted penetration testing, <em>human-verified</em>.</h1>
-    <p class="sub">Methodology-first security testing with <strong>evidence an auditor can hold</strong> — every finding verified by hand, every claim reproducible, every report written for the people who have to act on it.</p>
-  </div>
-  <div class="term" aria-hidden="true">
-    <div class="term-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="term-title">forefront@lab:~</span></div>
-    <div class="term-body">
-      <div><span class="p">$</span> forefront verify --evidence</div>
-      <div class="ok">✓ 12 checks passed</div>
-      <div class="ok">✓ remediation confirmed</div>
-      <div><span class="p">$</span> forefront report --auditor-ready</div>
-      <div class="dim">→ written for the people who act on it</div>
-      <div><span class="cursor">▍</span></div>
-    </div>
+    <h1>External web app, API, and cloud-config penetration testing, <em>human-verified</em>.</h1>
+    <p class="sub">Methodology-first security testing with <strong>evidence an auditor can review</strong> — every finding verified by hand, every finding traceable to raw evidence, every fix reproducible with a validator.</p>
+    <p>
+      <a class="cta" href="#founding">Founding clients: limited slots · $2,500 →</a>
+      <a class="cta-ghost" href="/report/">See what you get →</a>
+    </p>
   </div>
 </div>
 
-<h2>Focus areas</h2>
+  <div class="strip accent" id="founding">
+    <div>
+      <div class="t">Founding clients — limited slots (one engagement at a time) · Standard rate $4,500 · founding rate <strong>$2,500</strong></div>
+      <div class="d">External pentest of your web app, API, and cloud config — auditor-ready report in 10 business days from gate clearance. Comparable boutique engagements typically run $8–15k and 4–6 weeks. Full prepay; cancellation and refund terms are in the services agreement you sign before payment. A completed engagement is not a security guarantee. <a href="mailto:hello@forefrontsecurity.ai?subject=founding">Claim a slot</a> · <a href="/report/">See what you get</a></div>
+    </div>
+  </div>
+  <!-- [CONFIRM: number of founding slots; one-at-a-time capacity?] -->
+  <!-- [CONFIRM: source for the $8–15k comparison; keep or soften] -->
+  <!-- [CONFIRM: has $4,500 ever been charged? If yes, restore the strikethrough; if not, "Standard rate" is the safer anchor] -->
+  <!-- [CONFIRM: refund/cancellation/late-delivery terms are in the services agreement and match this sentence] -->
+  <!-- [CONFIRM: insurance — if the policy is bound, say "We carry professional liability insurance"; if not, keep "details available on request"] -->
+
+  <h2>Focus areas</h2>
   <div class="cards">
     <div class="card">
       <h3>Penetration testing</h3>
-      <p>Fixed-scope, auditor-ready assessments of web applications and APIs. Human-verified from first probe to final report.</p>
+      <p>Fixed-scope, auditor-ready assessments of web applications, APIs, and cloud configuration. Human-verified findings, from first test to final report.</p>
     </div>
     <div class="card">
       <h3>Verification tooling</h3>
@@ -160,21 +93,74 @@
     </div>
     <div class="card">
       <h3>Security research</h3>
-      <p>Coordinated disclosure, research notes, and reproducible evidence — published responsibly, on the vendor's timeline.</p>
-    </div>
-    <div class="card">
-      <h3>Opening soon</h3>
-      <p>Productized assessments are in final preparation. To be notified at launch, email <a href="mailto:hello@forefrontsecurity.ai?subject=waitlist">hello@forefrontsecurity.ai</a></p>
+      <p>Coordinated disclosure, research notes, and reproducible evidence — published responsibly on an agreed embargo timeline.</p>
     </div>
   </div>
 
+  <h2>How it works</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>1 · Scope &amp; kickoff</h3>
+      <p>Reach out via the founding rate above. We schedule the 30-minute kickoff; it locks the target list and contacts. Then we verify you control every target — a DNS TXT, well-known file, or response-header challenge we observe and capture as evidence, never a verbal OK.</p>
+    </div>
+    <div class="card">
+      <h3>2 · Sign &amp; prepay</h3>
+      <p>After the kickoff, we send the services agreement with the ROE as Exhibit A for e-signature. Company, primary domain, and primary contact are collected there. Full prepay follows countersignature; testing does not start before both.</p>
+    </div>
+    <div class="card">
+      <h3>3 · Gate clears</h3>
+      <p>Testing starts only after the full gate clears: signed services agreement + ROE, payment, verified control of every target, and the ROE test window. Anything touching production needs your written OK — that's the line we never cross. Insurance details are available on request.</p>
+    </div>
+    <div class="card">
+      <h3>4 · Testing runs</h3>
+      <p>AI-assisted testing run from our isolated lab against the targets your ROE names, every finding verified by hand before it goes near your report. You stay hands-off except for quick answers and production approvals. <a href="/methodology/">Methodology →</a></p>
+    </div>
+    <div class="card">
+      <h3>5 · Report + walkthrough</h3>
+      <p>Within 10 business days of gate clearance: auditor-ready report written for SOC 2 evidence expectations — raw evidence, reproduction steps, indicative effort estimates, and a runnable validator per finding (exit 0 = fixed). Plus a 30-minute findings walkthrough. <a href="/report/">See what you get →</a></p>
+    </div>
+    <div class="card">
+      <h3>6 · Retests — 30 days, included</h3>
+      <p>Fix a finding and request a retest within 30 days of delivery — we re-run its validator ourselves against your remediated system and append the result to your report's verification ledger within 3 business days. That re-run is the authoritative record; your own validator output is welcome but never the basis for attestation. One retest per fix attempt. The validators are yours to keep and run anytime, no engagement needed. After 30 days, further retests are a new engagement under a new ROE.</p>
+    </div>
+  </div>
+  <!-- [CONFIRM: TSC mapping artifact? If yes, say "mapped to the relevant AICPA TSC criteria" in card 5.] -->
 
+  <h2>Not ready to prepay?</h2>
+  <div class="strip">
+    <div>
+      <div class="t">Free public info scan.</div>
+      <div class="d">Passive OSINT on a domain you control — certificate logs, DNS/email configuration, public code, and public indexing. Nothing is touched. Verify ownership with a DNS TXT, well-known file, or response-header challenge. <a href="mailto:hello@forefrontsecurity.ai?subject=scan">Request a scan</a>.</div>
+    </div>
+  </div>
+  <!-- [CONFIRM: free scan live? If not, remove this section and the Terms/Privacy paragraphs.] -->
+
+  <h2>Who you're working with</h2>
+  <div class="strip">
+    <div>
+      <div class="t">Independent, solo, and accountable.</div>
+      <div class="d">Forefront is an independent security practice; every report is human-signed. Client work is confidential by default; references are available on request.</div>
+    </div>
+  </div>
+  <!-- [CONFIRM: add founder name, photo, 2-line bio, LinkedIn; can you provide references?] -->
+
+  <h2>In the lab</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>Repository &amp; dependency scanning</h3>
+      <p>Read-only scans of repos, images, and PRs — dependency CVEs, leaked secrets, IaC misconfig — with AI triage that suppresses noise, explains every surviving flag, and drafts the fix. Spec'd; never runs ahead of the pentest work. <a href="/research/#repo-scan">Lab note →</a></p>
+    </div>
+    <div class="card">
+      <h3>Smart-contract analysis</h3>
+      <p>Same engine, on-chain targets: pinned forks, AI audit + guided fuzz, validated findings, deployer-first disclosure. No audit service today — the lane opens when the risk fits. <a href="/research/#smart-contracts">Lab note →</a></p>
+    </div>
+  </div>
 
   <h2>Local-first, by construction</h2>
   <div class="strip">
     <div>
-      <div class="t">Nothing leaves the private lab.</div>
-      <div class="d">Every engagement runs on isolated local infrastructure — testing, analysis, and generation included. No cloud services, no third-party processing, no retention beyond the engagement. Your code, your credentials, and your findings stay on hardware we own.</div>
+      <div class="t">Client data is processed on hardware we own.</div>
+      <div class="d">Testing, analysis, and generation run on our own infrastructure — no third-party model APIs. Client code, credentials, findings, and evidence are processed locally. Email delivery, payments, site hosting, search metrics, and public vulnerability lookups are the only third-party services: Fastmail, Stripe, GitHub Pages, Google Search Console, and OSV.dev/GHSA.</div>
     </div>
   </div>
 
@@ -182,23 +168,24 @@
   <div class="disclosure">
     <div>
       <div class="t">Limited slots, curated selection.</div>
-      <div class="d">Isolated-lab testing of a pinned release, human-verified findings, coordinated disclosure — maintainer-first, always.</div>
+      <div class="d">Isolated-lab testing of a pinned release, human-verified findings, coordinated disclosure — maintainer-first, always. Selected projects get a human-verified findings report on a pinned release.</div>
     </div>
     <a href="mailto:hello@forefrontsecurity.ai?subject=oss">hello@forefrontsecurity.ai</a>
   </div>
+  <!-- [CONFIRM: OSS offer free or paid? State it here.] -->
 
   <h2>Responsible disclosure</h2>
   <div class="disclosure">
     <div>
       <div class="t">Found an issue in something we published or tested?</div>
-      <div class="d">Coordinated disclosure practiced. Reports answered, credit given where due.</div>
+      <div class="d">Coordinated disclosure practiced. Reports answered, credit given where due. <a href="/disclosure/">Disclosure policy →</a></div>
     </div>
     <a href="mailto:security@forefrontsecurity.ai">security@forefrontsecurity.ai</a>
   </div>
 
   <footer>
     <div>© 2026 Forefront Security</div>
-    <div><a href="mailto:hello@forefrontsecurity.ai">hello@forefrontsecurity.ai</a> · <a href="https://x.com/forefront_sec" class="mono">@forefront_sec</a></div>
+    <div><a href="mailto:hello@forefrontsecurity.ai">hello@forefrontsecurity.ai</a> · <a href="https://x.com/forefront_sec" class="mono">@forefront_sec</a> · <a href="/report/">Report structure</a> · <a href="/methodology/">Methodology</a> · <a href="/disclosure/">Disclosure</a> · <a href="/terms.html">Terms</a> · <a href="/privacy.html">Privacy</a></div>
   </footer>
 
 </div>
