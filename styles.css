@@ -54,6 +54,11 @@ header + .eyebrow { margin-top: 1.6rem; }
 nav { display: flex; gap: 1.1rem; margin: 0 auto; }
 nav a { color: var(--muted); text-decoration: none; font-size: .88rem; font-weight: 600; }
 nav a:hover { color: var(--accent); }
+nav a.active { color: var(--text); }
+nav a.active::after {
+  content: ""; display: block; height: 2px; margin-top: .35rem;
+  background: var(--accent); border-radius: 2px;
+}
 .header-art {
   margin-left: auto; height: 48px; width: auto; flex: none;
   border: 1px solid var(--border); border-radius: 10px;
