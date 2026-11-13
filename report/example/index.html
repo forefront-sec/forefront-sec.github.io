@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Worked example — OWASP Juice Shop report — Forefront Security</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230a0d12%27/%3E%3Cpath d=%27M20 14 V51%27 stroke=%27%235ad1ff%27 stroke-width=%275.5%27 stroke-linecap=%27round%27/%3E%3Cpath d=%27M20 14 H47%27 stroke=%27%235ad1ff%27 stroke-width=%275.5%27 stroke-linecap=%27round%27/%3E%3Cpath d=%27M20 34 L30 45 L47 25%27 stroke=%27%237aa2ff%27 stroke-width=%275.5%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 fill=%27none%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Worked example — OWASP Juice Shop report — Forefront Security">
+<meta name="description" content="A full Forefront report, produced against OWASP Juice Shop — a public, deliberately-vulnerable lab target. Eight findings, raw evidence, validators.">
+<link rel="canonical" href="https://forefrontsecurity.ai/report/example/">
+<style>
+  .doc { max-width: 900px; }
+  h1 { font-size: clamp(1.7rem, 3.6vw, 2.3rem); margin: 1rem 0 .6rem; }
+  .meta { color: var(--muted); font-size: .85rem; line-height: 1.8; font-family: ui-monospace, Menlo, monospace; margin: 0 0 1.4rem; }
+  .banner { border: 1px solid #1d4d3a; border-left: 3px solid #7ce38b; background: #0b1a13; color: #b9f0c7;
+    border-radius: 12px; padding: .8rem 1.1rem; font-size: .85rem; line-height: 1.55; margin: 1rem 0 2rem; }
+  h2 { color: var(--accent); font-family: inherit; letter-spacing: 0; text-transform: none; font-size: 1.15rem; margin: 2.4rem 0 .8rem; }
+  h3 { font-size: .98rem; margin: 1.6rem 0 .5rem; }
+  p, li { color: var(--muted); font-size: .9rem; line-height: 1.65; }
+  strong { color: var(--text); }
+  table { width: 100%; border-collapse: collapse; font-size: .82rem; margin: .6rem 0 1.2rem; }
+  th { text-align: left; color: var(--muted); font-weight: 600; padding: .45rem .5rem; border-bottom: 1px solid var(--border); font-size: .75rem; }
+  td { padding: .5rem; border-bottom: 1px solid var(--border); color: var(--muted); vertical-align: top; line-height: 1.5; }
+  pre { background: #0b0e13; border: 1px solid var(--border); border-radius: 8px; padding: .8rem; overflow-x: auto; font-size: .78rem; color: #c8d3e0; }
+  code { font-family: ui-monospace, Menlo, monospace; color: var(--accent); font-size: .85em; }
+  .sev { display: inline-block; font-family: ui-monospace, Menlo, monospace; font-size: .64rem; letter-spacing: .08em;
+    border-radius: 4px; padding: .05rem .4rem; vertical-align: middle; }
+  .crit { color: #ff8a8a; border: 1px solid #6b2020; background: #2a0f0f; }
+  .high { color: #ffb86b; border: 1px solid #6b4a20; background: #2a1d0f; }
+  .med { color: #ffd27d; border: 1px solid #66491a; background: #2a1a00; }
+  .low { color: #9aa3b2; border: 1px solid #3a4150; background: #141821; }
+  .toc { display: flex; flex-wrap: wrap; gap: .4rem 1rem; font-size: .82rem; margin: 0 0 2rem; }
+  .toc a { color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="wrap doc">
+
+<header>
+  <a class="home-link" href="/">
+    <svg class="mark" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+      <path d="M62 44 V162" stroke="#5ad1ff" stroke-width="17" stroke-linecap="round"/>
+      <path d="M62 44 H148" stroke="#5ad1ff" stroke-width="17" stroke-linecap="round"/>
+      <path d="M62 108 L96 142 L150 78" stroke="#7aa2ff" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div class="wordmark">Forefront <span>Security</span></div>
+  </a>
+    <nav>
+      <a href="/soc2/">SOC 2</a>
+      <a href="/report/">Report structure</a>
+      <a href="/standard/">Standard</a>
+      <a href="/methodology/">Methodology</a>
+      <a href="/research/">Lab notes</a>
+    </nav>
+</header>
+
+<p style="margin:1rem 0 0;"><a href="/report/" style="color:var(--accent);text-decoration:none;font-size:.85rem;">← Report structure</a></p>
+<h1>OWASP Juice Shop — Security Assessment Report</h1>
+<div class="meta">
+  Prepared for: OWASP Juice Shop v20.3.0 — worked example (public, deliberately-vulnerable lab target)<br>
+  Prepared by: Forefront Security LLC<br>
+  Engagement dates: 2026-10-27 · re-validated 2026-11-13<br>
+  Report version: v2.0 / 2026-11-13 · Classification: Public worked example
+</div>
+
+<div class="banner">A full worked example, produced against OWASP Juice Shop — a public, deliberately-vulnerable
+application. It is <strong>not</strong> a client engagement and contains no client data. Every finding is
+independently reproducible against a stock Juice Shop instance, and each ships with a runnable validator.</div>
+
+<div class="toc">
+  <a href="#summary">1 Summary</a>
+  <a href="#scope">2 Scope</a>
+  <a href="#severity">3 Severity</a>
+  <a href="#findings">4 Findings</a>
+  <a href="#positive">5 Positives</a>
+  <a href="#remediation">6 Remediation</a>
+  <a href="#retest">7 Retest</a>
+  <a href="#manifest">8 Manifest</a>
+  <a href="#ledger">9 Ledger</a>
+  <a href="#methodology">10 Coverage</a>
+  <a href="#attestation">11 Attestation</a>
+  <a href="#appendix">Appendices</a>
+</div>
+
+<h2 id="summary">1. Executive Summary</h2>
+<p>We assessed the self-owned OWASP Juice Shop lab application on October 27, 2026. We confirmed eight
+weaknesses: three critical, three high, one medium, and one low. The most urgent problem is that an
+outsider can reach customer information and administrator functions without a valid account.</p>
+<p>An outsider can sign in as an administrator without a password. A separate flaw in product search
+could also expose records held in the database, and a key published with the app lets an outsider pose
+as an administrator. These paths put customer data, store controls, and trust in the business at risk.</p>
+<p>Fix the three critical weaknesses immediately, starting with the search and sign-in flaws, then
+replace the exposed key used for sign-ins (see §6). The application did correctly deny access to one
+sensitive route. We will retest repaired findings at no charge within 30 days, as described in §7.</p>
+
+<table>
+  <tr><th>Severity</th><th>Count</th><th>IDs</th></tr>
+  <tr><td><span class="sev crit">CRITICAL</span></td><td>3</td><td>F-01, F-02, F-03</td></tr>
+  <tr><td><span class="sev high">HIGH</span></td><td>3</td><td>F-04, F-05, F-06</td></tr>
+  <tr><td><span class="sev med">MEDIUM</span></td><td>1</td><td>F-07</td></tr>
+  <tr><td><span class="sev low">LOW</span></td><td>1</td><td>F-08</td></tr>
+</table>
+
+<h2 id="scope">2. Scope &amp; Methodology</h2>
+<p><strong>In-scope assets:</strong> <code>http://127.0.0.1:3000</code> (OWASP Juice Shop v20.3.0, Docker, loopback-only binding) — per ROE §2.</p>
+<p><strong>Out of scope:</strong> DoS testing, social engineering, physical testing, host services other than port 3000 (ROE §5).</p>
+<p><strong>Test window:</strong> 2026-10-27.</p>
+<p><strong>Methodology:</strong> Reconnaissance (nmap 7.98 full-port), automated signature scanning
+(nuclei v3.11.1, 4,374 templates, rate-limited 50 req/s, 10 concurrent — <strong>0 CVE-signature matches</strong>),
+AI-assisted logic-flaw analysis with <strong>human verification of every finding</strong> (exact curl
+reproductions, response inspection), and root-cause confirmation against the running container's source.
+~30 rate-limited, read-only probes total. State changes were limited to: (a) creation of one designated
+low-privilege test account required for the BOLA proof, and (b) a product-price change with immediate
+restoration (F-06), performed to demonstrate the unauthorized write and return the system to its prior state.</p>
+<p><strong>Limitations:</strong> Single test window; no source code review beyond routes implicated by
+findings; frontend bundle secrets sweep covered shipped artifacts only; no authenticated-admin deep
+enumeration (out of ROE technique list).</p>
+
+<h2 id="severity">3. Severity Definitions</h2>
+<table>
+  <tr><th>Severity</th><th>Definition (business language)</th></tr>
+  <tr><td><span class="sev crit">CRITICAL</span></td><td>An external attacker can compromise data or accounts with no credentials or interaction; typically exploitable in one request</td></tr>
+  <tr><td><span class="sev high">HIGH</span></td><td>Significant data/privilege exposure requiring limited prerequisites (a low-priv account, user interaction)</td></tr>
+  <tr><td><span class="sev med">MEDIUM</span></td><td>Meaningful weakness that aids exploitation of other flaws or exposes useful intel, limited direct impact alone</td></tr>
+  <tr><td><span class="sev low">LOW</span></td><td>Best-practice deviation or minor information disclosure with negligible direct impact</td></tr>
+</table>
+<p style="font-size:.82rem;">CVSS v3.1 base scores are a secondary reference; the business-language definition governs ordering.</p>
+
+<h2 id="findings">4. Detailed Findings</h2>
+
+<h3>F-01 — Unauthenticated SQL injection in product search (full database read) — <span class="sev crit">CRITICAL 9.8</span></h3>
+<p><strong>Location:</strong> <code>GET /rest/products/search?q=</code></p>
+<p><strong>Description:</strong> The search parameter is concatenated directly into a SQLite <code>LIKE</code> clause. An attacker closes the query and appends a <code>UNION SELECT</code>, controlling the full result set.</p>
+<p><strong>Business impact:</strong> An attacker with no account can reach data beyond product listings, potentially exposing customer records and creating breach-response and notification costs.</p>
+<p><strong>Evidence:</strong> <code>F-01-sqli.txt</code> — 57-row JSON response containing an injected row (<code>sqlite_version()</code>); raw <code>SQLITE_ERROR</code> pages on malformed input confirm string concatenation.</p>
+<p><strong>Reproduction:</strong></p>
+<pre>curl -s --get --data-urlencode \
+  "q=')) UNION SELECT sqlite_version(),'1','2','3','4','5','6','7','8','9'--" \
+  "http://127.0.0.1:3000/rest/products/search"</pre>
+<p><strong>Remediation:</strong> Replace string concatenation with a parameterized query or Sequelize literal-bound replacements.</p>
+<p><strong>References:</strong> CWE-89 · OWASP A03:2021</p>
+
+<h3>F-02 — SQL injection authentication bypass (admin login without password) — <span class="sev crit">CRITICAL 9.8</span></h3>
+<p><strong>Location:</strong> <code>POST /rest/user/login</code></p>
+<p><strong>Description:</strong> The login lookup interpolates the email field into SQL. <code>' or 1=1--</code> in the email matches the first user row (id 1 = admin) and returns a valid admin session token.</p>
+<p><strong>Business impact:</strong> An attacker with no account can sign in as an administrator without knowing a password, gaining control over privileged functions and putting customer data and store operations at risk.</p>
+<p><strong>Evidence:</strong> <code>F-02-loginbypass.txt</code> — HTTP 200 with an <code>authentication.token</code> decoding to <code>{"id":1,"email":"admin@juice-sh.op","role":"admin"}</code>.</p>
+<p><strong>Reproduction:</strong></p>
+<pre>curl -s -X POST -H 'Content-Type: application/json' \
+  --data-binary '{"email":"'"'"' or 1=1--@juice-sh.op","password":"x"}' \
+  "http://127.0.0.1:3000/rest/user/login"</pre>
+<p><strong>Remediation:</strong> Exact-match credential lookup via the ORM plus bcrypt verification; never interpolate user input into SQL.</p>
+<p><strong>References:</strong> CWE-89 · OWASP A07:2021</p>
+
+<h3>F-03 — JWT forgery via hardcoded RSA private key — <span class="sev crit">CRITICAL 9.1</span></h3>
+<p><strong>Location:</strong> JWT verification for all authenticated endpoints; key material in <code>lib/insecurity.ts</code> / <code>encryptionkeys/jwt.pub</code></p>
+<p><strong>Description:</strong> The application ships a hardcoded RSA private key whose modulus is identical to the deployed public key. Anyone with the public source can mint arbitrary admin tokens.</p>
+<p><strong>Business impact:</strong> An attacker with access to the public application source can create a valid administrator identity, exposing customer records and creating breach and compliance risk.</p>
+<p><strong>Evidence:</strong> <code>F-03-jwtforgery.txt</code> — modulus SHA-256 match between deployed <code>jwt.pub</code> and source key; forged-token request returning admin data.</p>
+<p><strong>Reproduction:</strong> Extract key from source → sign payload <code>{"data":{"id":1,"role":"admin",...}}</code> RS256 → request <code>/api/Users</code> with the forged token.</p>
+<p><strong>Remediation:</strong> Generate keys per deployment at install time; load the private key from a protected runtime secret; rotate the deployed pair.</p>
+<p><strong>References:</strong> CWE-321 · OWASP A02:2021</p>
+
+<h3>F-04 — BOLA: any authenticated user reads any user's basket — <span class="sev high">HIGH 8.6</span></h3>
+<p><strong>Location:</strong> <code>GET /rest/basket/:id</code></p>
+<p><strong>Description:</strong> Basket lookup is driven purely by the path ID; no ownership check ties the requested basket to the token's user id.</p>
+<p><strong>Business impact:</strong> A customer with a free account can read another customer's basket, exposing purchase choices and quantities and undermining privacy and trust.</p>
+<p><strong>Evidence:</strong> <code>F-04-bola.txt</code> — register low-priv user → login token (role <code>customer</code>) → <code>GET /rest/basket/1</code> returned admin's basket.</p>
+<p><strong>Remediation:</strong> Derive the basket server-side from the verified token; reject cross-user IDs.</p>
+<p><strong>References:</strong> CWE-639 · OWASP A01:2021</p>
+
+<h3>F-05 — Password hash embedded in every issued JWT — <span class="sev high">HIGH 8.1</span></h3>
+<p><strong>Location:</strong> <code>POST /rest/user/login</code> response token payload</p>
+<p><strong>Description:</strong> Every issued token carries the user's <code>password</code> claim — verified as the unsalted MD5 of the plaintext password.</p>
+<p><strong>Business impact:</strong> An attacker who obtains a customer's sign-in token can use the password data inside it to try to recover that password, increasing account-takeover risk wherever it was reused.</p>
+<p><strong>Evidence:</strong> <code>F-05-jwthash.txt</code> — decoded token payload.</p>
+<p><strong>Remediation:</strong> Strip <code>password</code>/<code>totpSecret</code> claims from token payloads; hash with bcrypt/argon2; return only <code>id</code>/<code>email</code>/<code>role</code>.</p>
+<p><strong>References:</strong> CWE-522 · OWASP A04:2021</p>
+
+<h3>F-06 — Unauthenticated product price manipulation — <span class="sev high">HIGH 7.5</span></h3>
+<p><strong>Location:</strong> <code>PUT /api/Products/:id</code></p>
+<p><strong>Description:</strong> The admin guard on the update route is commented out, so the request falls through to the generic unauthenticated CRUD layer.</p>
+<p><strong>Business impact:</strong> A visitor without an account can change a product's listed price, putting sales revenue and the integrity of the storefront at risk.</p>
+<p><strong>Evidence:</strong> <code>F-06-price.txt</code> — unauthenticated <code>PUT</code> succeeded; guard verified absent in source.</p>
+<p><strong>Remediation:</strong> Restore the authorization middleware on all write routes; default-deny the generic CRUD layer for non-admin roles.</p>
+<p><strong>References:</strong> CWE-862 · OWASP A01:2021</p>
+
+<h3>F-07 — Security-question enumeration oracle — <span class="sev med">MEDIUM 5.3</span></h3>
+<p><strong>Location:</strong> <code>GET /rest/user/security-question?email=</code></p>
+<p><strong>Description:</strong> The response differentiates known vs unknown emails (<code>{"question":{...}}</code> vs <code>{}</code>), enabling account enumeration and reset-flow recon.</p>
+<p><strong>Business impact:</strong> Someone who knows or guesses an email can confirm whether it has an account and see its security question, making targeted phishing and account attacks easier.</p>
+<p><strong>Evidence:</strong> <code>F-07-enum.txt</code>.</p>
+<p><strong>Remediation:</strong> Return a uniform response for known/unknown emails; rate-limit the endpoint.</p>
+<p><strong>References:</strong> CWE-204 · OWASP A07:2021</p>
+
+<h3>F-08 — Verbose error pages exposing stack traces and SQL errors — <span class="sev low">LOW 3.1</span></h3>
+<p><strong>Location:</strong> Global error handler (malformed search query; 401 pages with server banner)</p>
+<p><strong>Description:</strong> Raw <code>SQLITE_ERROR</code> bodies and Express stack-trace HTML are returned to clients, leaking framework versions and query structure.</p>
+<p><strong>Business impact:</strong> A visitor who triggers a malformed request can see database and server details, making attacks easier to plan when combined with other flaws.</p>
+<p><strong>Evidence:</strong> <code>F-08-errors.txt</code> — HTTP 500 HTML page titled <code>Error: SQLITE_ERROR: near ")": syntax error</code>.</p>
+<p><strong>Remediation:</strong> Generic error responses; log details server-side only.</p>
+<p><strong>References:</strong> CWE-209 · OWASP A05:2021</p>
+
+<h2 id="positive">5. Positive Observations</h2>
+<ul>
+  <li>During testing, the application rejected a token claiming no signing method, which blocked that attempted sign-in bypass.</li>
+  <li>A sweep of the shipped frontend files found no embedded secrets in the reviewed files.</li>
+  <li>The security-answers route denied the tested request, blocking the suspected cross-user access path.</li>
+</ul>
+
+<h2 id="remediation">6. Prioritized Remediation Plan</h2>
+<table>
+  <tr><th>Priority</th><th>Finding</th><th>Action</th><th>Effort</th></tr>
+  <tr><td>P0 — immediately</td><td>F-01, F-02</td><td>Parameterize all SQL (search + login lookup)</td><td>2–4 hrs</td></tr>
+  <tr><td>P0 — immediately</td><td>F-03</td><td>Rotate JWT keypair; load private key from runtime secret</td><td>2 hrs</td></tr>
+  <tr><td>P1 — 30 days</td><td>F-04, F-06</td><td>Server-side ownership checks; re-enable authorization middleware on write routes</td><td>4 hrs</td></tr>
+  <tr><td>P1 — 30 days</td><td>F-05</td><td>Strip sensitive claims; adopt bcrypt/argon2</td><td>2 hrs</td></tr>
+  <tr><td>P2 — 90 days</td><td>F-07, F-08</td><td>Uniform enum responses; generic error pages</td><td>2 hrs</td></tr>
+</table>
+<p style="font-size:.82rem;">We provide indicative effort estimates; the client owns assignment and status. We never participate in internal remediation.</p>
+
+<h2 id="retest">7. Retest Offer</h2>
+<p>We perform one no-charge retest within 30 days of report delivery, after fixes are deployed and an
+authorized test window is agreed. For each reported finding, we repeat its original verification steps
+against the repaired system and confirm that the unauthorized action fails while expected use still
+works. We append dated results and evidence references to this report. Each finding also ships with a
+runnable validator (<code>F-0X-*.sh</code>; exit 0 = fixed, 1 = present, 2 = rig error) so the client can
+check a fix independently; Forefront's re-run remains the attestation.</p>
+
+<h2 id="manifest">8. Claim Manifest</h2>
+<table>
+  <tr><th>Claim</th><th>Expected pre-fix</th><th>Expected post-fix</th><th>Signed</th></tr>
+  <tr><td>F-01 — SQLi in search</td><td><code>UNION SELECT</code> returns injected row</td><td>Injected row absent</td><td>2026-10-27</td></tr>
+  <tr><td>F-02 — SQLi login bypass</td><td><code>' or 1=1--</code> returns admin token</td><td>Invalid creds → <code>401</code></td><td>2026-10-27</td></tr>
+  <tr><td>F-03 — JWT forgery</td><td>Forged RS256 token accepted as admin</td><td>Forged token rejected; keys rotated</td><td>2026-10-27</td></tr>
+  <tr><td>F-04 — BOLA basket</td><td>Low-priv token reads basket 1</td><td>Cross-user basket → <code>403</code></td><td>2026-10-27</td></tr>
+  <tr><td>F-05 — hash in JWT</td><td>Token carries MD5 password</td><td>Only id/email/role</td><td>2026-10-27</td></tr>
+  <tr><td>F-06 — unauth write</td><td>Unauthenticated <code>PUT</code> succeeds</td><td>Write → <code>401</code></td><td>2026-10-27</td></tr>
+  <tr><td>F-07 — enumeration</td><td>Known email → question; unknown → <code>{}</code></td><td>Uniform response</td><td>2026-10-27</td></tr>
+  <tr><td>F-08 — verbose errors</td><td>Raw <code>SQLITE_ERROR</code> returned</td><td>Generic error body</td><td>2026-10-27</td></tr>
+</table>
+
+<h2 id="ledger">9. Verification Ledger</h2>
+<p style="font-size:.85rem;">RED = finding present / vulnerable · GREEN = remediated and verified.</p>
+<table>
+  <tr><th>Run</th><th>Date</th><th>Trigger</th><th>F-01…F-08</th></tr>
+  <tr><td>1</td><td>2026-10-27</td><td>initial assessment</td><td>RED · RED · RED · RED · RED · RED · RED · RED</td></tr>
+  <tr><td>2</td><td>2026-11-13</td><td>re-validation (validators, 8/8 present)</td><td>RED · RED · RED · RED · RED · RED · RED · RED</td></tr>
+</table>
+<p style="font-size:.82rem;">The validator pack re-checks every finding; a <code>0 → 1</code> flip on a validator is the fix signal. This is a lab target, so no remediation run is expected.</p>
+
+<h2 id="methodology">10. Methodology &amp; Coverage</h2>
+<p><strong>Process.</strong> The assessment followed a PTES-phased process, aligned with NIST SP 800-115. Executed probes were mapped to OWASP WSTG v4.2 categories after the fact, from this engagement's evidence ledger. Scope was checked against OWASP ASVS 4.0.3 Level 1 at kickoff.</p>
+<table>
+  <tr><th>PTES phase</th><th>Performed</th></tr>
+  <tr><td>Pre-engagement Interactions</td><td>YES — signed ROE (lab target), window, loopback-only binding</td></tr>
+  <tr><td>Intelligence Gathering</td><td>YES — nmap <code>-sV -p-</code>, technology fingerprint, frontend bundle review</td></tr>
+  <tr><td>Threat Modeling</td><td>YES — lab threat model; AI hunt prioritized flaw classes</td></tr>
+  <tr><td>Vulnerability Analysis</td><td>YES — nuclei v3.11.1 (4,374 templates, rate-limited 50 req/s, 0 CVE matches); AI hypothesis generation</td></tr>
+  <tr><td>Exploitation</td><td>YES — proof-oriented, read-only PoCs only; every finding human-verified</td></tr>
+  <tr><td>Post Exploitation</td><td>NO — not entered; deliverables exclude attack chains</td></tr>
+  <tr><td>Reporting</td><td>YES</td></tr>
+</table>
+<p><strong>WSTG v4.2 coverage (categories exercised in this engagement, from the evidence ledger):</strong></p>
+<table>
+  <tr><th>Status</th><th>Count</th><th>Categories / notes</th></tr>
+  <tr><td>Performed (executed + evidenced)</td><td>9</td><td>INFO (fingerprint, metafiles); CONF (config/error handling); IDNT (enumeration, F-07); ATHN (auth bypass, F-02); ATHZ (BOLA, F-04); INPV (SQLi, F-01); SESS (JWT, F-03/F-05); BUSL (price manipulation, F-06); ERRH (verbose errors, F-08)</td></tr>
+  <tr><td>Not applicable (outside ROE scope)</td><td>—</td><td>DoS, social engineering, physical, wireless — ROE §5 exclusions</td></tr>
+  <tr><td>Not performed (in scope, not executed)</td><td>—</td><td>No authenticated-admin deep enumeration; no source review beyond implicated routes</td></tr>
+</table>
+<p><strong>ASVS:</strong> OWASP ASVS 4.0.3 Level 1 checklist completed at kickoff; N/A items recorded in the scope checklist.</p>
+<p style="font-size:.82rem;">This annex records which test areas were performed and which were out of scope or not performed. It does not imply that all vulnerabilities were found or that the system is secure.</p>
+
+<h2 id="attestation">11. Attestation</h2>
+<table>
+  <tr><th>Role</th><th>Name</th><th>Statement</th><th>Date</th></tr>
+  <tr><td>Analyst / Reviewer</td><td>Forefront Security</td><td>"All findings verified per evidence; tests match evidence. Report reviewed in full and approved for delivery (self-review on this lab example)."</td><td>2026-10-27</td></tr>
+  <tr><td>Re-validation</td><td>Forefront Security</td><td>"All eight findings re-verified against stock Juice Shop v20.3.0; validators present (8/8)."</td><td>2026-11-13</td></tr>
+</table>
+<p style="font-size:.82rem;">This is a worked example on a public lab target, self-reviewed. A client engagement report is reviewed and signed under the delivery gate before it is sent.</p>
+
+<h2 id="appendix">Appendix A — Tooling &amp; Configuration</h2>
+<p style="font-size:.82rem;">nmap 7.98 (<code>-sV -p-</code>) · nuclei v3.11.1 (templates 10.5.1, 4,374 loaded; <code>-rate-limit 50 -c 10</code>) · frontier-grade AI (hypothesis generation only — all findings human-verified; model/version in the engagement log) · Docker target v20.3.0.</p>
+
+<h2>Appendix B — Glossary</h2>
+<ul style="font-size:.85rem;">
+  <li><strong>SQL injection:</strong> a flaw that lets supplied input change a database command.</li>
+  <li><strong>IDOR/BOLA:</strong> a missing ownership check that lets a user access another user's record.</li>
+  <li><strong>JWT:</strong> a signed credential the application uses to identify a signed-in user; security depends on protecting the signing key and limiting the data inside it.</li>
+  <li><strong>CVSS:</strong> a standardized technical severity score used to prioritize findings, not an estimate of financial loss.</li>
+  <li><strong>Parameterized query:</strong> a query that treats supplied input as data rather than part of the command.</li>
+</ul>
+
+<h2>Appendix C — Excluded / Unverified Items</h2>
+<ul style="font-size:.85rem;">
+  <li><strong>SecurityAnswers IDOR:</strong> hypothesized, <strong>disproven</strong> — route hard-denied; 401 is unconditional.</li>
+  <li><strong>Frontend bundle secrets:</strong> hypothesized, <strong>negative</strong> — 0 matches across all shipped artifacts.</li>
+  <li><strong><code>none</code>-alg JWT:</strong> tested, <strong>rejected</strong> by the server (correct behavior).</li>
+  <li>Cloud configuration, OT/infra testing: out of ROE scope, not assessed.</li>
+</ul>
+
+<div style="margin-top:2.4rem;">
+  <a class="cta" href="/#founding">Founding clients: limited slots · $2,500 →</a>
+  <a class="cta" href="/report/" style="margin-left:.6rem;">← Report structure</a>
+</div>
+
+<footer>
+  <div>© 2026 Forefront Security</div>
+  <div><a href="mailto:hello@forefrontsecurity.ai">hello@forefrontsecurity.ai</a> · <a href="https://x.com/forefront_sec" class="mono">@forefront_sec</a> · <a href="/soc2/">SOC 2</a> · <a href="/standard/">Standard</a> · <a href="/report/">Report structure</a> · <a href="/methodology/">Methodology</a> · <a href="/disclosure/">Disclosure</a> · <a href="/terms.html">Terms</a> · <a href="/privacy.html">Privacy</a></div>
+</footer>
+
+</div>
+</body>
+</html>

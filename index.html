@@ -49,7 +49,9 @@
       <div class="wordmark">Forefront <span>Security</span></div>
     </a>
     <nav>
+      <a href="/soc2/">SOC 2</a>
       <a href="/report/">Report structure</a>
+      <a href="/standard/">Standard</a>
       <a href="/methodology/">Methodology</a>
       <a href="/research/">Lab notes</a>
     </nav>
@@ -71,15 +73,16 @@
 
   <div class="strip accent" id="founding">
     <div>
-      <div class="t">Founding clients — limited slots (one engagement at a time) · Standard rate $4,500 · founding rate <strong>$2,500</strong></div>
+      <div class="t">Founding rate <strong>$2,500</strong> · standard rate $4,500 once the founding cohort closes</div>
       <div class="d">External pentest of your web app, API, and cloud config — auditor-ready report in 10 business days from gate clearance. Comparable boutique engagements typically run $8–15k and 4–6 weeks. Full prepay; cancellation and refund terms are in the services agreement you sign before payment. A completed engagement is not a security guarantee. <a href="mailto:hello@forefrontsecurity.ai?subject=founding">Claim a slot</a> · <a href="/report/">See what you get</a></div>
     </div>
   </div>
   <!-- [CONFIRM: number of founding slots; one-at-a-time capacity?] -->
   <!-- [CONFIRM: source for the $8–15k comparison; keep or soften] -->
-  <!-- [CONFIRM: has $4,500 ever been charged? If yes, restore the strikethrough; if not, "Standard rate" is the safer anchor] -->
-  <!-- [CONFIRM: refund/cancellation/late-delivery terms are in the services agreement and match this sentence] -->
+  <!-- [CONFIRM: $4,500 is a forward standard rate, never struck through. Never claim a former price unless actually charged (FTC reference-price rule)] -->
+  <!-- [CONFIRM: refund/cancellation terms live in MSA draft §4 (full before test window / 50% window-to-first-test / none after); confirm before first sale] -->
   <!-- [CONFIRM: insurance — if the policy is bound, say "We carry professional liability insurance"; if not, keep "details available on request"] -->
+  <!-- [CONFIRM: MSA draft is still staged (not attorney-reviewed, not in business/legal/); move + attorney pass before first client] -->
 
   <h2>Focus areas</h2>
   <div class="cards">
@@ -101,11 +104,11 @@
   <div class="cards">
     <div class="card">
       <h3>1 · Scope &amp; kickoff</h3>
-      <p>Reach out via the founding rate above. We schedule the 30-minute kickoff; it locks the target list and contacts. Then we verify you control every target — a DNS TXT, well-known file, or response-header challenge we observe and capture as evidence, never a verbal OK.</p>
+      <p>Reach out via the founding rate above. We confirm the target list and contacts by email — no meeting required. Then we verify you control every target — a DNS TXT, well-known file, or response-header challenge we observe and capture as evidence, never a verbal OK.</p>
     </div>
     <div class="card">
       <h3>2 · Sign &amp; prepay</h3>
-      <p>After the kickoff, we send the services agreement with the ROE as Exhibit A for e-signature. Company, primary domain, and primary contact are collected there. Full prepay follows countersignature; testing does not start before both.</p>
+      <p>After scope is confirmed, we send the services agreement with the ROE as Exhibit A for e-signature. Company, primary domain, and primary contact are collected there. Full prepay follows countersignature; testing does not start before both.</p>
     </div>
     <div class="card">
       <h3>3 · Gate clears</h3>
@@ -117,7 +120,7 @@
     </div>
     <div class="card">
       <h3>5 · Report + walkthrough</h3>
-      <p>Within 10 business days of gate clearance: auditor-ready report written for SOC 2 evidence expectations — raw evidence, reproduction steps, indicative effort estimates, and a runnable validator per finding (exit 0 = fixed). Plus a 30-minute findings walkthrough. <a href="/report/">See what you get →</a></p>
+      <p>Within 10 business days of gate clearance: auditor-ready report written for SOC 2 evidence expectations — raw evidence, reproduction steps, indicative effort estimates, and a runnable validator per finding (exit 0 = fixed). The report walks through each finding in writing, worst first, so you can read it on your schedule and share it with your engineer or auditor. No calls are needed at any point; if you want to discuss the report once it's ready, that's optional and arranged after delivery. <a href="/report/">See what you get →</a></p>
     </div>
     <div class="card">
       <h3>6 · Retests — 30 days, included</h3>
@@ -130,19 +133,26 @@
   <div class="strip">
     <div>
       <div class="t">Free public info scan.</div>
-      <div class="d">Passive OSINT on a domain you control — certificate logs, DNS/email configuration, public code, and public indexing. Nothing is touched. Verify ownership with a DNS TXT, well-known file, or response-header challenge. <a href="mailto:hello@forefrontsecurity.ai?subject=scan">Request a scan</a>.</div>
+      <div class="d">Passive OSINT on a domain you control — certificate logs, DNS/email configuration, public code, and public indexing. Nothing is touched. Verify ownership with a DNS TXT, well-known file, or response-header challenge. Runs are manual: you'll get a short written summary within 2 business days. <a href="mailto:hello@forefrontsecurity.ai?subject=scan">Request a scan</a>.</div>
     </div>
   </div>
-  <!-- [CONFIRM: free scan live? If not, remove this section and the Terms/Privacy paragraphs.] -->
+  <!-- [OFFER: free scan is live as a manual offer. To pause, remove this section and the Terms §4 / Privacy scan paragraphs. Manual turnaround: 2 business days.] -->
 
   <h2>Who you're working with</h2>
   <div class="strip">
     <div>
       <div class="t">Independent, solo, and accountable.</div>
-      <div class="d">Forefront is an independent security practice; every report is human-signed. Client work is confidential by default; references are available on request.</div>
+      <div class="d">Forefront is an independent security practice; every report is human-signed. Client work is confidential by default — client names, logos, and report content are published only with permission.</div>
     </div>
   </div>
-  <!-- [CONFIRM: add founder name, photo, 2-line bio, LinkedIn; can you provide references?] -->
+  <div class="strip">
+    <div>
+      <div class="t">What clients say</div>
+      <div class="d">"The report was clear and easy to follow, and it got us to tighten up a few things we probably would have let slide."<br>— <strong>A web design studio</strong>, first engagement: 8 findings across web and DNS, every one verified fixed on retest.</div>
+    </div>
+  </div>
+  <!-- [SWAP: "Bourassa Design" once Pat approves public attribution] -->
+  <!-- [CONFIRM: keep "references available on request" only once Pat agrees to be a reference; add the line when confirmed] -->
 
   <h2>In the lab</h2>
   <div class="cards">
@@ -167,12 +177,12 @@
   <h2>For open-source maintainers</h2>
   <div class="disclosure">
     <div>
-      <div class="t">Limited slots, curated selection.</div>
-      <div class="d">Isolated-lab testing of a pinned release, human-verified findings, coordinated disclosure — maintainer-first, always. Selected projects get a human-verified findings report on a pinned release.</div>
+      <div class="t">Free, for a few projects each quarter.</div>
+      <div class="d">We take a small number of open-source projects each quarter and review a pinned release — isolated-lab testing, human-verified findings, coordinated disclosure, maintainer-first. It's free; submit yours and we'll tell you if it's a fit.</div>
     </div>
     <a href="mailto:hello@forefrontsecurity.ai?subject=oss">hello@forefrontsecurity.ai</a>
   </div>
-  <!-- [CONFIRM: OSS offer free or paid? State it here.] -->
+  <!-- [OFFER: OSS is free + selective, capped to the 5-target practice backlog (business-plan §3C). No public queue.] -->
 
   <h2>Responsible disclosure</h2>
   <div class="disclosure">
@@ -185,7 +195,7 @@
 
   <footer>
     <div>© 2026 Forefront Security</div>
-    <div><a href="mailto:hello@forefrontsecurity.ai">hello@forefrontsecurity.ai</a> · <a href="https://x.com/forefront_sec" class="mono">@forefront_sec</a> · <a href="/report/">Report structure</a> · <a href="/methodology/">Methodology</a> · <a href="/disclosure/">Disclosure</a> · <a href="/terms.html">Terms</a> · <a href="/privacy.html">Privacy</a></div>
+    <div><a href="mailto:hello@forefrontsecurity.ai">hello@forefrontsecurity.ai</a> · <a href="https://x.com/forefront_sec" class="mono">@forefront_sec</a> · <a href="/soc2/">SOC 2</a> · <a href="/standard/">Standard</a> · <a href="/report/">Report structure</a> · <a href="/methodology/">Methodology</a> · <a href="/disclosure/">Disclosure</a> · <a href="/terms.html">Terms</a> · <a href="/privacy.html">Privacy</a></div>
   </footer>
 
 </div>

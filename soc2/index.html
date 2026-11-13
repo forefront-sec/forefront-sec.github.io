@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SOC 2 pentest evidence — Forefront Security</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230a0d12%27/%3E%3Cpath d=%27M20 14 V51%27 stroke=%27%235ad1ff%27 stroke-width=%275.5%27 stroke-linecap=%27round%27/%3E%3Cpath d=%27M20 14 H47%27 stroke=%27%235ad1ff%27 stroke-width=%275.5%27 stroke-linecap=%27round%27/%3E%3Cpath d=%27M20 34 L30 45 L47 25%27 stroke=%27%237aa2ff%27 stroke-width=%275.5%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 fill=%27none%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../styles.css">
+<meta property="og:title" content="SOC 2 pentest evidence — Forefront Security">
+<meta name="description" content="What a SOC 2 auditor looks for in penetration testing evidence, and how an evidence-grade report answers it. External web app, API, and cloud-config testing in 10 business days.">
+<link rel="canonical" href="https://forefrontsecurity.ai/soc2/">
+<style>
+  .doc { max-width: 860px; }
+  h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin: 1rem 0 .8rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+  th { text-align: left; color: var(--muted); font-weight: 600; padding: .5rem .6rem; border-bottom: 1px solid var(--border); font-size: .8rem; }
+  td { padding: .55rem .6rem; border-bottom: 1px solid var(--border); color: var(--muted); vertical-align: top; line-height: 1.5; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; }
+  @media (max-width: 640px) { .cols { grid-template-columns: 1fr; } }
+  .faq h3 { font-size: .98rem; margin: 1.2rem 0 .4rem; }
+</style>
+</head>
+<body>
+<div class="wrap doc">
+
+<header>
+  <a class="home-link" href="/">
+    <svg class="mark" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+      <path d="M62 44 V162" stroke="#5ad1ff" stroke-width="17" stroke-linecap="round"/>
+      <path d="M62 44 H148" stroke="#5ad1ff" stroke-width="17" stroke-linecap="round"/>
+      <path d="M62 108 L96 142 L150 78" stroke="#7aa2ff" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div class="wordmark">Forefront <span>Security</span></div>
+  </a>
+    <nav>
+      <a href="/soc2/">SOC 2</a>
+      <a href="/report/">Report structure</a>
+      <a href="/standard/">Standard</a>
+      <a href="/methodology/">Methodology</a>
+      <a href="/research/">Lab notes</a>
+    </nav>
+  <img class="header-art" src="../hero_B_1.png" width="1536" height="340"
+       alt="Neon cyan data streams flowing across holographic panels, resolving into a bright green verified checkmark.">
+</header>
+
+<h1>The pentest report your SOC 2 auditor can verify</h1>
+<p class="sub">If you're heading into a SOC 2 audit, your auditor will ask for evidence of
+penetration testing — and "we did a pentest" isn't evidence. This page explains what auditors look
+for, and how an evidence-grade report answers it. External web app, API, and cloud-config testing,
+in 10 business days.</p>
+<p>
+  <a class="cta" href="/report/">See what your auditor receives →</a>
+  <a class="cta-ghost" href="mailto:hello@forefrontsecurity.ai">Questions? hello@forefrontsecurity.ai</a>
+</p>
+
+<h2>What SOC 2 asks for</h2>
+<p>SOC 2 is an audit of controls against the AICPA Trust Services Criteria. Penetration testing isn't
+a single named control — it's <strong>evidence</strong> that supports several: how you detect and
+respond to vulnerabilities, monitor your environment, and manage risk. Auditors commonly ask for
+evidence that testing was performed (on which systems, and when), what was found and how it was
+addressed, and that the testing was done by a qualified party under an agreed scope.</p>
+<p><em>Your auditor sets the specific requirement and the criteria they apply. This page is general
+information, not compliance advice, and does not guarantee any audit outcome.</em></p>
+
+<h2>What an auditor can verify</h2>
+<table>
+  <tr><th>The auditor asks</th><th>What the report provides</th></tr>
+  <tr><td>"What was tested, and when?"</td><td>Scope, targets, and test window, per the signed ROE</td></tr>
+  <tr><td>"How do you know the finding was real?"</td><td>Raw server response per finding, byte-counted and UTC-stamped</td></tr>
+  <tr><td>"Who verified it?"</td><td>Human verification stated per finding; report signed</td></tr>
+  <tr><td>"What did you actually cover?"</td><td>Scope &amp; limitations: performed / out of scope / not performed, derived from the evidence</td></tr>
+  <tr><td>"Was it fixed?"</td><td>Per-finding validator (exit code) and a retest record in the verification ledger</td></tr>
+  <tr><td>"How do I compare findings across reports?"</td><td>Stated severity rubric and business-language definitions</td></tr>
+</table>
+<p style="margin-top:1rem;">This is the <a href="/standard/" style="color:var(--accent);">Evidence-Grade Report Standard</a> in practice.</p>
+
+<h2>What you get</h2>
+<div class="cards">
+  <div class="card"><h3>The report</h3><p>Executive summary, verified findings with attack path and fix, scope &amp; limitations, attestation.</p></div>
+  <div class="card"><h3>The evidence</h3><p>Raw responses, timestamps, append-only ledger — every finding traceable to source.</p></div>
+  <div class="card"><h3>The validators</h3><p>Run them yourself to confirm each fix; our re-run is the attestation.</p></div>
+  <div class="card"><h3>The retest window</h3><p>One retest per fix attempt, within 30 days of delivery.</p></div>
+</div>
+
+<h2>Scope — what this covers, and what it doesn't</h2>
+<div class="cols">
+  <div class="strip"><div class="t">Covers</div><div class="d">External web application, API, and cloud-configuration review, per signed ROE.</div></div>
+  <div class="strip"><div class="t">Doesn't cover</div><div class="d">Internal network testing, social engineering, physical testing, mobile apps, or ongoing monitoring. If your SOC 2 scope needs those, we'll tell you plainly — they're outside this engagement.</div></div>
+</div>
+
+<h2>The gate — why this is safe to authorize</h2>
+<p>No testing without: a signed services agreement with the ROE as Exhibit A, prepayment,
+live-observed proof you control each target (DNS TXT, well-known file, or response-header challenge —
+captured as raw evidence), and the ROE test window. Passive OSINT is the only pre-gate activity.</p>
+
+<h2>Offer</h2>
+<div class="strip accent">
+  <div>
+    <div class="t">Founding rate <strong>$2,500</strong> · standard rate $4,500 once the founding cohort closes</div>
+    <div class="d">Report in 10 business days from gate clearance. <a href="mailto:hello@forefrontsecurity.ai?subject=founding">Claim a slot</a> · <a href="/report/">See what your auditor receives</a></div>
+  </div>
+</div>
+
+<h2>FAQ</h2>
+<div class="faq">
+  <h3>Will this pass my SOC 2 audit?</h3>
+  <p>We don't guarantee audit outcomes — that's your auditor's call. What we provide is a report built so the evidence is verifiable, which is what auditors ask for.</p>
+  <h3>Is a pentest required for SOC 2?</h3>
+  <p>It's not a single named control, but it's commonly used as evidence supporting several criteria. Confirm the specific requirement with your auditor.</p>
+  <h3>How fast can you start?</h3>
+  <p>10 business days from gate clearance (signed agreement + payment + ownership verification + test window).</p>
+  <h3>Do you need access to our code?</h3>
+  <p>No — this is external, black-box testing of what's exposed. Staging credentials are optional and scoped in the ROE.</p>
+  <h3>What if you find nothing?</h3>
+  <p>You get the report and a scope &amp; limitations statement showing what was tested. A clean result is still evidence — and it tells your auditor exactly what was covered.</p>
+</div>
+
+<div style="margin-top:2.4rem;">
+  <a class="cta" href="mailto:hello@forefrontsecurity.ai?subject=founding">Claim a founding slot →</a>
+</div>
+
+<footer>
+  <div>© 2026 Forefront Security</div>
+  <div><a href="mailto:hello@forefrontsecurity.ai">hello@forefrontsecurity.ai</a> · <a href="https://x.com/forefront_sec" class="mono">@forefront_sec</a> · <a href="/standard/">Report standard</a> · <a href="/report/">Report structure</a> · <a href="/methodology/">Methodology</a> · <a href="/disclosure/">Disclosure</a> · <a href="/terms.html">Terms</a> · <a href="/privacy.html">Privacy</a></div>
+</footer>
+
+</div>
+</body>
+</html>

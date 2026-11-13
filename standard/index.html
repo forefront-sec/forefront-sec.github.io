@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Evidence-Grade Report Standard — Forefront Security</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230a0d12%27/%3E%3Cpath d=%27M20 14 V51%27 stroke=%27%235ad1ff%27 stroke-width=%275.5%27 stroke-linecap=%27round%27/%3E%3Cpath d=%27M20 14 H47%27 stroke=%27%235ad1ff%27 stroke-width=%275.5%27 stroke-linecap=%27round%27/%3E%3Cpath d=%27M20 34 L30 45 L47 25%27 stroke=%27%237aa2ff%27 stroke-width=%275.5%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 fill=%27none%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../styles.css">
+<meta property="og:title" content="The Evidence-Grade Report Standard — Forefront Security">
+<meta name="description" content="Six things every evidence-grade pentest report contains: raw evidence, human verification, a validator per finding, a scope and coverage statement, a claim manifest, and an attestation. Our published internal standard.">
+<link rel="canonical" href="https://forefrontsecurity.ai/standard/">
+<style>
+  .doc { max-width: 860px; }
+  h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin: 1rem 0 .8rem; }
+  .standfirst { color: var(--muted); font-size: .85rem; font-family: ui-monospace, Menlo, monospace; margin: 0 0 2rem; }
+  .elem { border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 14px; background: var(--panel); padding: 1.2rem 1.3rem; margin-bottom: .9rem; }
+  .elem h3 { margin: 0 0 .5rem; font-size: 1rem; }
+  .elem p { margin: 0 0 .6rem; color: var(--muted); font-size: .92rem; line-height: 1.65; }
+  .elem .ask { margin: 0; color: var(--text); font-size: .9rem; }
+  .elem .ask strong { color: var(--accent); }
+  table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+  th { text-align: left; color: var(--muted); font-weight: 600; padding: .5rem .6rem; border-bottom: 1px solid var(--border); font-size: .8rem; }
+  td { padding: .55rem .6rem; border-bottom: 1px solid var(--border); color: var(--muted); vertical-align: top; line-height: 1.5; }
+  td:first-child { color: var(--accent); font-family: ui-monospace, Menlo, monospace; white-space: nowrap; }
+</style>
+</head>
+<body>
+<div class="wrap doc">
+
+<header>
+  <a class="home-link" href="/">
+    <svg class="mark" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+      <path d="M62 44 V162" stroke="#5ad1ff" stroke-width="17" stroke-linecap="round"/>
+      <path d="M62 44 H148" stroke="#5ad1ff" stroke-width="17" stroke-linecap="round"/>
+      <path d="M62 108 L96 142 L150 78" stroke="#7aa2ff" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div class="wordmark">Forefront <span>Security</span></div>
+  </a>
+    <nav>
+      <a href="/soc2/">SOC 2</a>
+      <a href="/report/">Report structure</a>
+      <a href="/standard/">Standard</a>
+      <a href="/methodology/">Methodology</a>
+      <a href="/research/">Lab notes</a>
+    </nav>
+  <img class="header-art" src="../hero_B_1.png" width="1536" height="340"
+       alt="Neon cyan data streams flowing across holographic panels, resolving into a bright green verified checkmark.">
+</header>
+
+<h1>The Evidence-Grade Report Standard</h1>
+<p class="standfirst">Version 1 · published November 2026 · maintained by Forefront Security</p>
+
+<p class="sub">Most pentest reports are prose with screenshots. An evidence-grade report is built so
+your auditor — or your own engineer — can verify every finding without taking the vendor's word for
+it. This is our published internal standard: the six things we require of every report we deliver.
+It is free to adopt; we ask only that you cite it.</p>
+
+<h2>Why this standard exists</h2>
+<p>A pentest report has one job: let someone who wasn't in the room verify what was found, act on
+it, and prove the fix. Most reports fail that job the same way — a finding with no raw evidence, a
+severity with no rationale, a fix with no way to check it, and a "we tested everything" claim with no
+record of what was actually tested. This standard lists what we require of our own reports. We
+publish it so buyers can ask every vendor the same six questions.</p>
+
+<h2>The six elements</h2>
+
+<div class="elem">
+  <h3>1 · Raw evidence per finding</h3>
+  <p>Every finding cites the server's actual response — captured, not summarized. Byte count and UTC
+  timestamp are recorded at capture time, so the reader can trace the finding to a specific response,
+  not a description of one.</p>
+  <p class="ask"><strong>Ask a vendor:</strong> "Show me the raw response for one finding, with its byte count and timestamp."</p>
+</div>
+
+<div class="elem">
+  <h3>2 · Human verification, stated</h3>
+  <p>Every finding is confirmed by a person, and the report says so. Automated candidates that were
+  not confirmed are not presented as findings.</p>
+  <p class="ask"><strong>Ask a vendor:</strong> "Which findings came from an automated tool, and who verified each one?"</p>
+</div>
+
+<div class="elem">
+  <h3>3 · A runnable validator per finding</h3>
+  <p>Each finding ships with a small, non-destructive script that returns a fixed result:
+  <code>0</code> = fixed, <code>1</code> = still present, <code>2</code> = the test rig itself failed.
+  You can run it yourself; the provider's re-run is the attestation.</p>
+  <p class="ask"><strong>Ask a vendor:</strong> "Can I run a check myself that tells me whether this finding is fixed?"</p>
+</div>
+
+<div class="elem">
+  <h3>4 · A scope &amp; coverage statement derived from the evidence</h3>
+  <p>The report states which test areas were performed, which were out of scope, and which were not
+  performed — built from what was actually run in that engagement, not from a generic capability
+  list. A completed engagement is not a security guarantee, and the report says so.</p>
+  <p class="ask"><strong>Ask a vendor:</strong> "Which test areas did you actually perform in this engagement, and which did you not?"</p>
+</div>
+
+<div class="elem">
+  <h3>5 · A claim manifest</h3>
+  <p>Each finding's expected state before and after the fix is recorded in a machine-readable
+  manifest, with its evidence reference. Claims and evidence are bound together.</p>
+  <p class="ask"><strong>Ask a vendor:</strong> "Can you give me a manifest that links each claim to its evidence?"</p>
+</div>
+
+<div class="elem">
+  <h3>6 · An attestation</h3>
+  <p>The report is signed, dated, and tied to the evidence it cites. The signature identifies who
+  reviewed and approved the delivery.</p>
+  <p class="ask"><strong>Ask a vendor:</strong> "Who signed this report, and what exactly did they attest to?"</p>
+</div>
+
+<h2>What this standard is not</h2>
+<ul>
+  <li><strong>Not a certification.</strong> Adopting it does not mean a provider is "certified" or "compliant" with anything.</li>
+  <li><strong>Not a guarantee of security.</strong> A report that meets this standard documents what was tested and found — it does not mean all vulnerabilities were found or that a system is secure.</li>
+  <li><strong>Not a framework-alignment claim.</strong> This standard defines report <em>evidence quality</em>; it does not claim alignment with any testing framework. Any framework-mapped coverage is a separate, per-engagement artifact.</li>
+  <li><strong>Not a template to copy verbatim.</strong> The value is in the practice — evidence captured at the source, validators that actually run, an annex built from the ledger.</li>
+</ul>
+
+<h2>How to use it</h2>
+<div class="cards">
+  <div class="card"><h3>Buyers</h3><p>Copy the six "Ask a vendor" questions into your RFP or vendor evaluation.</p></div>
+  <div class="card"><h3>Auditors</h3><p>Use the six elements as a checklist for whether a submitted report is evidence-grade.</p></div>
+  <div class="card"><h3>Providers</h3><p>Adopt it, cite it, improve it. If an element is missing, open a conversation — this is v1.</p></div>
+</div>
+
+<h2>Our position</h2>
+<p>We build our reports to this standard, and every engagement ships these six elements. We publish
+it because buyers should be able to compare — and because a market where reports are verifiable is
+better for everyone in it.</p>
+
+<div style="margin-top:2.4rem;">
+  <a class="cta" href="/report/">See what a report looks like →</a>
+  <a class="cta" href="/#founding" style="margin-left:.6rem;">Founding clients: limited slots · $2,500 →</a>
+</div>
+<!-- [DELIVERY GATE: "every engagement ships these six elements" is true only once the next delivery carries
+     the claim manifest (element 5) and the attestation (element 6). Until then, either soften to
+     "reports are built to this standard" or ship the next engagement with both. Owner accepted this as a
+     delivery obligation 2026-11-11.] -->
+
+<footer>
+  <div>© 2026 Forefront Security</div>
+  <div><a href="mailto:hello@forefrontsecurity.ai">hello@forefrontsecurity.ai</a> · <a href="https://x.com/forefront_sec" class="mono">@forefront_sec</a> · <a href="/report/">Report structure</a> · <a href="/methodology/">Methodology</a> · <a href="/soc2/">SOC 2</a> · <a href="/disclosure/">Disclosure</a> · <a href="/terms.html">Terms</a> · <a href="/privacy.html">Privacy</a></div>
+</footer>
+
+</div>
+</body>
+</html>
