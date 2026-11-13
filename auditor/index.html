@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>For auditors — how this report maps to your evidence request — Forefront Security</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230a0d12%27/%3E%3Cpath d=%27M20 14 V51%27 stroke=%27%235ad1ff%27 stroke-width=%275.5%27 stroke-linecap=%27round%27/%3E%3Cpath d=%27M20 14 H47%27 stroke=%27%235ad1ff%27 stroke-width=%275.5%27 stroke-linecap=%27round%27/%3E%3Cpath d=%27M20 34 L30 45 L47 25%27 stroke=%27%237aa2ff%27 stroke-width=%275.5%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 fill=%27none%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../styles.css">
+<meta property="og:title" content="For auditors — how this report maps to your evidence request — Forefront Security">
+<meta property="og:image" content="https://forefrontsecurity.ai/hero_B_1.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://forefrontsecurity.ai/hero_B_1.png">
+<meta name="description" content="How an evidence-grade pentest report fits a SOC 2 evidence request: the five tests auditors apply, what the report proves and does not prove, and how to use it in your file.">
+<link rel="canonical" href="https://forefrontsecurity.ai/auditor/">
+<style>
+  .doc { max-width: 860px; }
+  h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin: 1rem 0 .8rem; }
+  .elem { border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 14px; background: var(--panel); padding: 1.2rem 1.3rem; margin-bottom: .9rem; }
+  .elem h3 { margin: 0 0 .5rem; font-size: 1rem; }
+  .elem p { margin: 0; color: var(--muted); font-size: .92rem; line-height: 1.65; }
+  table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+  th { text-align: left; color: var(--muted); font-weight: 600; padding: .5rem .6rem; border-bottom: 1px solid var(--border); font-size: .8rem; }
+  td { padding: .55rem .6rem; border-bottom: 1px solid var(--border); color: var(--muted); vertical-align: top; line-height: 1.5; }
+  td:first-child { color: var(--accent); font-family: ui-monospace, Menlo, monospace; white-space: nowrap; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; }
+  @media (max-width: 640px) { .cols { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap doc">
+
+<header>
+  <a class="home-link" href="/">
+    <svg class="mark" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+      <path d="M62 44 V162" stroke="#5ad1ff" stroke-width="17" stroke-linecap="round"/>
+      <path d="M62 44 H148" stroke="#5ad1ff" stroke-width="17" stroke-linecap="round"/>
+      <path d="M62 108 L96 142 L150 78" stroke="#7aa2ff" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div class="wordmark">Forefront <span>Security</span></div>
+  </a>
+    <nav>
+      <a href="/soc2/">SOC 2</a>
+      <a href="/report/">Report structure</a>
+      <a href="/standard/">Standard</a>
+      <a href="/methodology/">Methodology</a>
+      <a href="/research/">Lab notes</a>
+    </nav>
+  <img class="header-art" src="../hero_B_1.png" width="1536" height="340"
+       alt="Neon cyan data streams flowing across holographic panels, resolving into a bright green verified checkmark.">
+</header>
+
+<h1>For auditors: how this report fits your evidence request</h1>
+<p class="sub">A pentest report is one input to your examination, not a control opinion. This page
+shows how an evidence-grade report answers the tests auditors apply to vendor evidence — and,
+plainly, what it does not prove. Your auditor sets the requirement and applies the criteria; this
+page is general information, not compliance advice.</p>
+
+<h2>The five tests auditors apply to evidence</h2>
+<p>Whatever the framework, examiners weigh evidence on the same five dimensions. Here is how a
+report built to the <a href="/standard/" style="color:var(--accent);">Evidence-Grade Report Standard</a>
+answers each.</p>
+
+<div class="elem">
+  <h3>Authenticity — is this the record the provider actually produced?</h3>
+  <p>Every finding cites the raw server response, byte-counted and UTC-stamped at capture. The report
+  is signed and dated; its evidence index is hashed. You can trace each claim to a specific capture,
+  not a summary of one.</p>
+</div>
+<div class="elem">
+  <h3>Relevance — does it speak to the period and the system in scope?</h3>
+  <p>The signed ROE names the targets, the test window, and the method. The report states what was in
+  scope, what was out of scope, and what was not performed — derived from the evidence, not a generic
+  capability list.</p>
+</div>
+<div class="elem">
+  <h3>Completeness — is anything material omitted or over-read?</h3>
+  <p>Findings are separated from hardening notes; disproven hypotheses are recorded alongside
+  confirmed ones. A scope &amp; limitations statement makes over-reading the result hard by design.</p>
+</div>
+<div class="elem">
+  <h3>Sufficiency — is it enough to support a conclusion?</h3>
+  <p>Each finding carries an attack path, reproduction steps, and a runnable validator (exit 0 = fixed).
+  The retest ledger shows status over time. Whether that is <em>sufficient</em> for your file is your
+  professional judgment — the report is built to make that judgment possible.</p>
+</div>
+<div class="elem">
+  <h3>Timeliness — does it cover the period you opine on?</h3>
+  <p>A pentest is point-in-time. For a period-based examination, the dated report plus the retest
+  ledger show activity across the window. The report says plainly that it is a point-in-time
+  assessment, not continuous monitoring.</p>
+</div>
+
+<h2>Where it fits in SOC 2</h2>
+<p>SOC 2 evaluates controls against the AICPA Trust Services Criteria: five categories (Security,
+Availability, Processing Integrity, Confidentiality, Privacy), with the Common Criteria (CC1–CC9) as
+the required Security set. Penetration testing is not a single named control — it is <strong>evidence</strong>
+that supports several, and the AICPA's own guidance lists penetration testing among the evaluations
+management may use in its monitoring activities.</p>
+<p>Because the specific control mapping depends on your system description and the criteria you scope,
+we do not publish a fixed control-by-control crosswalk. The report is structured so you can place each
+finding against the criteria you apply; we will provide a mapping to the criteria you name on request,
+as a per-engagement artifact — not a compliance claim.</p>
+<p style="font-size:.85rem;color:var(--muted);">Framework facts above are drawn from the AICPA 2017 Trust
+Services Criteria structure and public auditor guidance. We do not reproduce or paraphrase the
+criteria text, and nothing here is an audit opinion.</p>
+
+<h2>What this report proves — and does not prove</h2>
+<div class="cols">
+  <div class="strip"><div class="t">Proves</div><div class="d">These specific weaknesses were present in the tested system on the stated dates; each is reproducible from the cited evidence; the fixes were (or were not) verified on retest.</div></div>
+  <div class="strip"><div class="t">Does not prove</div><div class="d">That no other weaknesses exist; that controls operate across the full period; that the tester is competent or independent beyond what is stated; or that remediation is complete beyond what was retested.</div></div>
+</div>
+
+<h2>Independence and review — stated plainly</h2>
+<p>Forefront is a solo practice. The analyst who performs the testing also signs the report; that is a
+self-review, and the report says so in its attestation rather than implying a second reviewer exists.
+If your examination requires independent review of the tester's work, tell us at scoping — we will say
+whether we can meet it, rather than overstate what we provide. Model choice and version are recorded
+in every engagement log and available to you.</p>
+
+<h2>What you can ask us for</h2>
+<table>
+  <tr><th>You need</th><th>What we provide</th></tr>
+  <tr><td>The evidence itself</td><td>Raw, byte-counted captures and a hashed evidence index</td></tr>
+  <tr><td>Scope and authorization</td><td>The signed ROE (targets, window, method) as Exhibit A</td></tr>
+  <tr><td>Reproducibility</td><td>A runnable, non-destructive validator per finding (exit 0 = fixed)</td></tr>
+  <tr><td>Status over time</td><td>A dated retest ledger — RED (present) / GREEN (verified fixed)</td></tr>
+  <tr><td>A criteria mapping</td><td>A per-engagement map to the criteria you name, on request</td></tr>
+  <tr><td>What wasn't tested</td><td>A scope &amp; limitations statement, plus excluded/unverified items</td></tr>
+</table>
+
+<div style="margin-top:2.4rem;">
+  <a class="cta" href="/report/example/">See a full worked example →</a>
+  <a class="cta-ghost" href="mailto:hello@forefrontsecurity.ai?subject=auditor" style="margin-left:.6rem;">Ask about your evidence request</a>
+</div>
+
+<footer>
+  <div>© 2026 Forefront Security LLC · California</div>
+  <div><a href="mailto:hello@forefrontsecurity.ai">hello@forefrontsecurity.ai</a> · <a href="https://x.com/forefront_sec" class="mono">@forefront_sec</a> · <a href="/soc2/">SOC 2</a> · <a href="/standard/">Standard</a> · <a href="/report/">Report structure</a> · <a href="/methodology/">Methodology</a> · <a href="/disclosure/">Disclosure</a> · <a href="/terms.html">Terms</a> · <a href="/privacy.html">Privacy</a></div>
+</footer>
+
+</div>
+</body>
+</html>
