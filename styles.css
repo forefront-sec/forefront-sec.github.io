@@ -31,7 +31,22 @@ body::after {
   -webkit-mask-image: radial-gradient(70% 60% at 50% 0%, black, transparent 75%);
 }
 .wrap { max-width: 980px; margin: 0 auto; padding: 0 1.5rem; }
-header { display: flex; align-items: center; gap: .65rem; padding: 1.6rem 0; }
+/* Header sits at a fixed content width on every page, independent of the page body
+   wrapper (.wrap vs .wrap.doc). Keeps the nav position identical across pages.
+   The header is pulled to viewport-center and given the same 980px content box
+   the home page uses, so nav spacing/position never shifts between pages. */
+header {
+  display: flex; align-items: center; gap: .65rem;
+  padding: 1.6rem 0;
+  width: 980px; max-width: calc(100vw - 3rem);
+  position: relative; left: 50%; transform: translateX(-50%);
+}
+/* Normalize the gap between the header and the first content block so vertical
+   spacing under the nav is identical on every page (home .hero vs doc h1/eyebrow). */
+header + .hero,
+header + h1,
+header + .eyebrow { margin-top: 1.6rem; }
+
 .mark { width: 28px; height: 28px; flex: none; }
 .wordmark { font-weight: 650; letter-spacing: -0.01em; }
 .wordmark span { color: var(--muted); font-weight: 500; }
