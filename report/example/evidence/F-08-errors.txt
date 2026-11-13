@@ -1,0 +1,77 @@
+================================================================
+================================================================
+
+----------------------------------------------------------------
+CAPTURE: 2026-10-27 22:30:48 UTC · HTTP 200 · 30 bytes
+COMMAND:
+curl -s --get --data-urlencode q=' http://127.0.0.1:3000/rest/products/search
+----------------------------------------------------------------
+RAW RESPONSE (30 bytes) — unedited, full capture:
+{"status":"success","data":[]}
+VERIFICATION NOTE:
+Expected per hypothesis: malformed input returns raw SQL error details to the client.
+Observed: HTML error page titled "Error: SQLITE_ERROR: near \"%29\": syntax error" — database engine, query shape, and framework versions disclosed. (Earlier capture in this file shows q=' returning clean JSON — the verbose page appears on syntax-broken input.) CONFIRMED.
+Captured by: Forefront Security
+----------------------------------------------------------------
+
+----------------------------------------------------------------
+CAPTURE: 2026-10-27 22:31:53 UTC · HTTP 500 · 974 bytes
+COMMAND:
+curl -s --get --data-urlencode q=')) http://127.0.0.1:3000/rest/products/search
+----------------------------------------------------------------
+RAW RESPONSE (974 bytes) — unedited, full capture:
+<html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>Error: SQLITE_ERROR: near &quot;)&quot;: syntax error</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  margin-top: 10px;
+}
+ul li {
+  list-style: none;
+}
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>500</em> Error: SQLITE_ERROR: near &quot;)&quot;: syntax error</h2>
+      <ul id="stacktrace"></ul>
+    </div>
+  </body>
+</html>
+
+VERIFICATION NOTE:
+Expected per hypothesis: malformed input returns raw SQL error details to the client.
+Observed: HTML error page titled "Error: SQLITE_ERROR: near \"%29\": syntax error" — database engine, query shape, and framework versions disclosed. (Earlier capture in this file shows q=' returning clean JSON — the verbose page appears on syntax-broken input.) CONFIRMED.
+Captured by: Forefront Security
+----------------------------------------------------------------

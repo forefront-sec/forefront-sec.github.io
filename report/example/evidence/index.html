@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Raw evidence — Juice Shop worked example — Forefront Security</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230a0d12%27/%3E%3Cpath d=%27M20 14 V51%27 stroke=%27%235ad1ff%27 stroke-width=%275.5%27 stroke-linecap=%27round%27/%3E%3Cpath d=%27M20 14 H47%27 stroke=%27%235ad1ff%27 stroke-width=%275.5%27 stroke-linecap=%27round%27/%3E%3Cpath d=%27M20 34 L30 45 L47 25%27 stroke=%27%237aa2ff%27 stroke-width=%275.5%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 fill=%27none%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Raw evidence — Juice Shop worked example — Forefront Security">
+<meta name="description" content="Raw, byte-counted server responses behind every finding in the Juice Shop worked example.">
+<link rel="canonical" href="https://forefrontsecurity.ai/report/example/evidence/">
+<style>
+  .doc { max-width: 860px; }
+  h1 { font-size: clamp(1.7rem, 4vw, 2.3rem); margin: 1rem 0 .8rem; }
+  .filelist { list-style: none; padding: 0; margin: 1.2rem 0; }
+  .filelist li { border-bottom: 1px solid var(--border); padding: .6rem 0; }
+  .filelist a { color: var(--accent); text-decoration: none; font-family: ui-monospace, Menlo, monospace; font-size: .9rem; }
+  .filelist .note { color: var(--muted); font-size: .85rem; }
+  .back { margin: 1rem 0 0; font-size: .85rem; }
+</style>
+</head>
+<body>
+<div class="wrap doc">
+
+<header>
+  <a class="home-link" href="/">
+    <svg class="mark" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+      <path d="M62 44 V162" stroke="#5ad1ff" stroke-width="17" stroke-linecap="round"/>
+      <path d="M62 44 H148" stroke="#5ad1ff" stroke-width="17" stroke-linecap="round"/>
+      <path d="M62 108 L96 142 L150 78" stroke="#7aa2ff" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div class="wordmark">Forefront <span>Security</span></div>
+  </a>
+    <nav>
+      <a href="/soc2/">SOC 2</a>
+      <a href="/report/" class="active" aria-current="page">Report structure</a>
+      <a href="/standard/">Standard</a>
+      <a href="/methodology/">Methodology</a>
+      <a href="/research/">Lab notes</a>
+    </nav>
+</header>
+
+<p class="back"><a href="/report/example/" style="color:var(--accent);text-decoration:none;">← Juice Shop worked example</a></p>
+<h1>Raw evidence — Juice Shop worked example</h1>
+<p class="sub">Unedited, byte-counted, UTC-stamped server responses for every finding, captured at test time. These are the raw captures the report cites — nothing summarized, nothing rewritten.</p>
+<ul class="filelist">
+  <li><a href="F-01-sqli.txt">F-01-sqli.txt</a><div class="note">F-01 — SQL injection in product search (full database read)</div></li>
+  <li><a href="F-02-loginbypass.txt">F-02-loginbypass.txt</a><div class="note">F-02 — SQL injection authentication bypass</div></li>
+  <li><a href="F-03-jwtforgery.txt">F-03-jwtforgery.txt</a><div class="note">F-03 — JWT forgery via shipped key material</div></li>
+  <li><a href="F-04-bola.txt">F-04-bola.txt</a><div class="note">F-04 — BOLA: any user reads any basket</div></li>
+  <li><a href="F-05-jwthash.txt">F-05-jwthash.txt</a><div class="note">F-05 — password hash embedded in JWT</div></li>
+  <li><a href="F-06-price.txt">F-06-price.txt</a><div class="note">F-06 — unauthenticated product write</div></li>
+  <li><a href="F-07-enum.txt">F-07-enum.txt</a><div class="note">F-07 — security-question user enumeration</div></li>
+  <li><a href="F-08-errors.txt">F-08-errors.txt</a><div class="note">F-08 — verbose error pages</div></li>
+  <li><a href="session-transcript-2026-10-27.txt">session-transcript-2026-10-27.txt</a><div class="note">Session transcript — 2026-10-27</div></li>
+</ul>
+
+<footer>
+  <div>© 2026 Forefront Security LLC · California</div>
+  <div><a href="mailto:hello@forefrontsecurity.ai">hello@forefrontsecurity.ai</a> · <a href="https://x.com/forefront_sec" class="mono">@forefront_sec</a> · <a href="/soc2/">SOC 2</a> · <a href="/standard/">Standard</a> · <a href="/report/">Report structure</a> · <a href="/methodology/">Methodology</a> · <a href="/disclosure/">Disclosure</a> · <a href="/terms.html">Terms</a> · <a href="/privacy.html">Privacy</a></div>
+</footer>
+
+</div>
+</body>
+</html>

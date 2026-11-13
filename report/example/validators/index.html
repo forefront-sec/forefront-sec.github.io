@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Validator pack — Juice Shop worked example — Forefront Security</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230a0d12%27/%3E%3Cpath d=%27M20 14 V51%27 stroke=%27%235ad1ff%27 stroke-width=%275.5%27 stroke-linecap=%27round%27/%3E%3Cpath d=%27M20 14 H47%27 stroke=%27%235ad1ff%27 stroke-width=%275.5%27 stroke-linecap=%27round%27/%3E%3Cpath d=%27M20 34 L30 45 L47 25%27 stroke=%27%237aa2ff%27 stroke-width=%275.5%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 fill=%27none%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Validator pack — Juice Shop worked example — Forefront Security">
+<meta name="description" content="Runnable, non-destructive validators for each finding in the Juice Shop worked example.">
+<link rel="canonical" href="https://forefrontsecurity.ai/report/example/validators/">
+<style>
+  .doc { max-width: 860px; }
+  h1 { font-size: clamp(1.7rem, 4vw, 2.3rem); margin: 1rem 0 .8rem; }
+  .filelist { list-style: none; padding: 0; margin: 1.2rem 0; }
+  .filelist li { border-bottom: 1px solid var(--border); padding: .6rem 0; }
+  .filelist a { color: var(--accent); text-decoration: none; font-family: ui-monospace, Menlo, monospace; font-size: .9rem; }
+  .filelist .note { color: var(--muted); font-size: .85rem; }
+  .back { margin: 1rem 0 0; font-size: .85rem; }
+</style>
+</head>
+<body>
+<div class="wrap doc">
+
+<header>
+  <a class="home-link" href="/">
+    <svg class="mark" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+      <path d="M62 44 V162" stroke="#5ad1ff" stroke-width="17" stroke-linecap="round"/>
+      <path d="M62 44 H148" stroke="#5ad1ff" stroke-width="17" stroke-linecap="round"/>
+      <path d="M62 108 L96 142 L150 78" stroke="#7aa2ff" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div class="wordmark">Forefront <span>Security</span></div>
+  </a>
+    <nav>
+      <a href="/soc2/">SOC 2</a>
+      <a href="/report/" class="active" aria-current="page">Report structure</a>
+      <a href="/standard/">Standard</a>
+      <a href="/methodology/">Methodology</a>
+      <a href="/research/">Lab notes</a>
+    </nav>
+</header>
+
+<p class="back"><a href="/report/example/" style="color:var(--accent);text-decoration:none;">← Juice Shop worked example</a></p>
+<h1>Validator pack — Juice Shop worked example</h1>
+<p class="sub">One non-destructive, rate-limited script per finding. Same convention we ship to clients: exit <span class="mono">0</span> = fixed, <span class="mono">1</span> = still present, <span class="mono">2</span> = rig error. Run them against your own stock Juice Shop instance.</p>
+<ul class="filelist">
+  <li><a href="README.md">README.md</a><div class="note">How the validator pack works — exit codes, usage, safety</div></li>
+  <li><a href="run-all.sh">run-all.sh</a><div class="note">Run every finding check sequentially</div></li>
+  <li><a href="F-01-sqli.sh">F-01-sqli.sh</a><div class="note">F-01 — SQL injection in product search</div></li>
+  <li><a href="F-02-loginbypass.sh">F-02-loginbypass.sh</a><div class="note">F-02 — SQL injection authentication bypass</div></li>
+  <li><a href="F-03-jwtforgery.sh">F-03-jwtforgery.sh</a><div class="note">F-03 — JWT key-material precondition check</div></li>
+  <li><a href="F-04-bola.sh">F-04-bola.sh</a><div class="note">F-04 — BOLA: any user reads any basket</div></li>
+  <li><a href="F-05-jwthash.sh">F-05-jwthash.sh</a><div class="note">F-05 — password hash embedded in JWT</div></li>
+  <li><a href="F-06-price.sh">F-06-price.sh</a><div class="note">F-06 — unauthenticated product write</div></li>
+  <li><a href="F-07-enum.sh">F-07-enum.sh</a><div class="note">F-07 — security-question user enumeration</div></li>
+  <li><a href="F-08-errors.sh">F-08-errors.sh</a><div class="note">F-08 — verbose error pages</div></li>
+</ul>
+
+<footer>
+  <div>© 2026 Forefront Security LLC · California</div>
+  <div><a href="mailto:hello@forefrontsecurity.ai">hello@forefrontsecurity.ai</a> · <a href="https://x.com/forefront_sec" class="mono">@forefront_sec</a> · <a href="/soc2/">SOC 2</a> · <a href="/standard/">Standard</a> · <a href="/report/">Report structure</a> · <a href="/methodology/">Methodology</a> · <a href="/disclosure/">Disclosure</a> · <a href="/terms.html">Terms</a> · <a href="/privacy.html">Privacy</a></div>
+</footer>
+
+</div>
+</body>
+</html>

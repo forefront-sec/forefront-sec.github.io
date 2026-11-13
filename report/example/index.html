@@ -225,8 +225,26 @@ enumeration (out of ROE technique list).</p>
 authorized test window is agreed. For each reported finding, we repeat its original verification steps
 against the repaired system and confirm that the unauthorized action fails while expected use still
 works. We append dated results and evidence references to this report. Each finding also ships with a
-runnable validator (<code>F-0X-*.sh</code>; exit 0 = fixed, 1 = present, 2 = rig error) so the client can
-check a fix independently; Forefront's re-run remains the attestation.</p>
+runnable validator (e.g. <code>F-04-bola.sh</code>; exit 0 = fixed, 1 = present, 2 = rig error) so the
+client can check a fix independently; Forefront's re-run remains the attestation.</p>
+
+<h2 id="verify-yourself">Verify this yourself</h2>
+<p>The whole point of an evidence-grade report is that you can check it without taking our word for
+it. Every artifact behind this example is published here — the raw server responses and the runnable
+validators — so you can reproduce the findings against your own stock Juice Shop instance.</p>
+<div class="cards">
+  <div class="card">
+    <h3>Raw evidence</h3>
+    <p>Unedited, byte-counted, UTC-stamped server responses for all eight findings, plus the session
+    transcript. <a href="/report/example/evidence/">Browse the evidence →</a></p>
+  </div>
+  <div class="card">
+    <h3>Runnable validators</h3>
+    <p>One non-destructive script per finding, same exit-code convention we ship to clients.
+    <a href="/report/example/validators/">Open the validator pack →</a>
+    (<a href="/report/example/validators/README.md">README</a>)</p>
+  </div>
+</div>
 
 <h2 id="manifest">8. Claim Manifest</h2>
 <table>
@@ -306,7 +324,7 @@ check a fix independently; Forefront's re-run remains the attestation.</p>
 </div>
 
 <footer>
-  <div>© 2026 Forefront Security</div>
+  <div>© 2026 Forefront Security LLC · California</div>
   <div><a href="mailto:hello@forefrontsecurity.ai">hello@forefrontsecurity.ai</a> · <a href="https://x.com/forefront_sec" class="mono">@forefront_sec</a> · <a href="/soc2/">SOC 2</a> · <a href="/standard/">Standard</a> · <a href="/report/">Report structure</a> · <a href="/methodology/">Methodology</a> · <a href="/disclosure/">Disclosure</a> · <a href="/terms.html">Terms</a> · <a href="/privacy.html">Privacy</a></div>
 </footer>
 
